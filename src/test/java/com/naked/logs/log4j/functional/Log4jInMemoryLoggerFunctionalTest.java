@@ -22,7 +22,7 @@ import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
 public class Log4jInMemoryLoggerFunctionalTest {
 	
-    private static final String LOGGER_NAME = "com.logfi.some.package";
+    private static final String LOGGER_NAME = "com.naked.logs.some.package";
 	private Logger logger;
 	private Log4jInMemoryLogger inMemoryLogger;
     
