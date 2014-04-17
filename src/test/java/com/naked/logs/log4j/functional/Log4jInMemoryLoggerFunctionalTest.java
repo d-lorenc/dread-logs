@@ -203,11 +203,19 @@ public class Log4jInMemoryLoggerFunctionalTest {
     }
 
     @Test
-    public void shouldCaptureLogWithCorrectExceptionClass() throws Exception {
+    public void shouldCaptureLogWithCorrectExceptionMessage() throws Exception {
     	
     	logger.error("a message", new IllegalArgumentException("illegal argument"));
     	
     	assertThat(inMemoryLogger, hasLog("a message").withException(IllegalArgumentException.class).withException("illegal argument"));
+    }
+
+    @Test
+    public void shouldCaptureLogWithCorrectExceptionClass() throws Exception {
+    	
+    	logger.error("a message", new IllegalArgumentException("illegal argument"));
+    	
+    	assertThat(inMemoryLogger, hasLog("a message").withException(IllegalArgumentException.class));
     }
     
     @Test
@@ -227,6 +235,18 @@ public class Log4jInMemoryLoggerFunctionalTest {
     	MDC.remove("key");
     	
     	assertThat(inMemoryLogger, hasLog("a message").withMdc("key", "value"));
+    }
+    
+    @Test
+    public void shouldCaptureLogWithCorrectMdcValues() throws Exception {
+    	
+    	MDC.put("key1", "one");
+    	MDC.put("key2", "two");
+    	logger.info("a message");
+    	MDC.remove("key1");
+    	MDC.remove("key2");
+    	
+    	assertThat(inMemoryLogger, hasLog("a message").withMdc("key1", "one").withMdc("key2", "two"));
     }
     
     @Test
