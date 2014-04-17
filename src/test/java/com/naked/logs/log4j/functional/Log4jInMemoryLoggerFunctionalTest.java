@@ -21,131 +21,131 @@ import org.junit.Test;
 import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
 public class Log4jInMemoryLoggerFunctionalTest {
-	
+
     private static final String LOGGER_NAME = "com.naked.logs.some.package";
-	private Logger logger;
-	private Log4jInMemoryLogger inMemoryLogger;
-    
-	@Before
-	public void before() throws Exception {
-		logger = Logger.getLogger(LOGGER_NAME);
-		inMemoryLogger = new Log4jInMemoryLogger(LOGGER_NAME);
-	}
-	
-	@After
-	public void after() throws Exception {
-		inMemoryLogger.removeAppender();
-	}
-	
-	@Test
+    private Logger logger;
+    private Log4jInMemoryLogger inMemoryLogger;
+
+    @Before
+    public void before() throws Exception {
+        logger = Logger.getLogger(LOGGER_NAME);
+        inMemoryLogger = new Log4jInMemoryLogger(LOGGER_NAME);
+    }
+
+    @After
+    public void after() throws Exception {
+        inMemoryLogger.removeAppender();
+    }
+
+    @Test
     public void shouldCaptureFatalLog() throws Exception {
-        
+
         logger.fatal("fatal message");
 
         assertThat(inMemoryLogger, hasLog("fatal message").onLevel(FATAL));
     }
 
-	@Test
-	public void shouldCaptureFatalLogWithException() throws Exception {
-		
-		logger.fatal("fatal message", new Throwable("an exception"));
-		
-		assertThat(inMemoryLogger, hasLog("fatal message").onLevel(FATAL).withException("an exception"));
-	}
+    @Test
+    public void shouldCaptureFatalLogWithException() throws Exception {
 
-	@Test
+        logger.fatal("fatal message", new Throwable("an exception"));
+
+        assertThat(inMemoryLogger, hasLog("fatal message").onLevel(FATAL).withException("an exception"));
+    }
+
+    @Test
     public void shouldCaptureErrorLog() throws Exception {
-        
+
         logger.error("error message");
 
         assertThat(inMemoryLogger, hasLog("error message").onLevel(ERROR));
     }
 
-	@Test
-	public void shouldCaptureErrorLogWithException() throws Exception {
-		
-		logger.error("error message", new Throwable("an exception"));
-		
-		assertThat(inMemoryLogger, hasLog("error message").onLevel(ERROR).withException("an exception"));
-	}
+    @Test
+    public void shouldCaptureErrorLogWithException() throws Exception {
 
-	@Test
-	public void shouldCaptureWarnLog() throws Exception {
-		
-		logger.warn("warn message");
-		
-		assertThat(inMemoryLogger, hasLog("warn message").onLevel(WARN));
-	}
-	
-	@Test
-	public void shouldCaptureWarnLogWithException() throws Exception {
-		
-		logger.warn("warn message", new Throwable("an exception"));
-		
-		assertThat(inMemoryLogger, hasLog("warn message").onLevel(WARN).withException("an exception"));
-	}
-	
-	@Test
-	public void shouldCaptureInfoLog() throws Exception {
-		
-		logger.info("info message");
-		
-		assertThat(inMemoryLogger, hasLog("info message").onLevel(INFO));
-	}
-	
-	@Test
-	public void shouldCaptureInfoLogWithException() throws Exception {
-		
-		logger.info("info message", new Throwable("an exception"));
-		
-		assertThat(inMemoryLogger, hasLog("info message").onLevel(INFO).withException("an exception"));
-	}	
-	
-	@Test
-	public void shouldCaptureDebugLog() throws Exception {
-		
-		logger.debug("debug message");
-		
-		assertThat(inMemoryLogger, hasLog("debug message").onLevel(DEBUG));
-	}
-	
-	@Test
-	public void shouldCaptureDebugLogWithException() throws Exception {
-		
-		logger.debug("debug message", new Throwable("an exception"));
-		
-		assertThat(inMemoryLogger, hasLog("debug message").onLevel(DEBUG).withException("an exception"));
-	}
-	
-	@Test
-	public void shouldCaptureTraceLog() throws Exception {
-		
-		logger.trace("trace message");
-		
-		assertThat(inMemoryLogger, hasLog("trace message").onLevel(TRACE));
-	}
-	
-	@Test
-	public void shouldCaptureTraceLogWithException() throws Exception {
-		
-		logger.trace("trace message", new Throwable("an exception"));
-		
-		assertThat(inMemoryLogger, hasLog("trace message").onLevel(TRACE).withException("an exception"));
-	}
+        logger.error("error message", new Throwable("an exception"));
+
+        assertThat(inMemoryLogger, hasLog("error message").onLevel(ERROR).withException("an exception"));
+    }
+
+    @Test
+    public void shouldCaptureWarnLog() throws Exception {
+
+        logger.warn("warn message");
+
+        assertThat(inMemoryLogger, hasLog("warn message").onLevel(WARN));
+    }
+
+    @Test
+    public void shouldCaptureWarnLogWithException() throws Exception {
+
+        logger.warn("warn message", new Throwable("an exception"));
+
+        assertThat(inMemoryLogger, hasLog("warn message").onLevel(WARN).withException("an exception"));
+    }
+
+    @Test
+    public void shouldCaptureInfoLog() throws Exception {
+
+        logger.info("info message");
+
+        assertThat(inMemoryLogger, hasLog("info message").onLevel(INFO));
+    }
+
+    @Test
+    public void shouldCaptureInfoLogWithException() throws Exception {
+
+        logger.info("info message", new Throwable("an exception"));
+
+        assertThat(inMemoryLogger, hasLog("info message").onLevel(INFO).withException("an exception"));
+    }
+
+    @Test
+    public void shouldCaptureDebugLog() throws Exception {
+
+        logger.debug("debug message");
+
+        assertThat(inMemoryLogger, hasLog("debug message").onLevel(DEBUG));
+    }
+
+    @Test
+    public void shouldCaptureDebugLogWithException() throws Exception {
+
+        logger.debug("debug message", new Throwable("an exception"));
+
+        assertThat(inMemoryLogger, hasLog("debug message").onLevel(DEBUG).withException("an exception"));
+    }
+
+    @Test
+    public void shouldCaptureTraceLog() throws Exception {
+
+        logger.trace("trace message");
+
+        assertThat(inMemoryLogger, hasLog("trace message").onLevel(TRACE));
+    }
+
+    @Test
+    public void shouldCaptureTraceLogWithException() throws Exception {
+
+        logger.trace("trace message", new Throwable("an exception"));
+
+        assertThat(inMemoryLogger, hasLog("trace message").onLevel(TRACE).withException("an exception"));
+    }
 
     @Test
     public void shouldNotCaptureFatalLogIfLevelDisabled() throws Exception {
         Log4jInMemoryLogger inMemoryLogger = new Log4jInMemoryLogger(LOGGER_NAME, Level.OFF);
-        
+
         logger.fatal("fatal message");
-        
+
         assertThat(inMemoryLogger, noLog("fatal message"));
     }
-	
+
     @Test
     public void shouldNotCaptureErrorLogIfLevelDisabled() throws Exception {
         Log4jInMemoryLogger inMemoryLogger = new Log4jInMemoryLogger(LOGGER_NAME, Level.FATAL);
-        
+
         logger.error("error message");
 
         assertThat(inMemoryLogger, noLog("error message"));
@@ -177,100 +177,100 @@ public class Log4jInMemoryLoggerFunctionalTest {
 
         assertThat(inMemoryLogger, noLog("trace message"));
     }
-    
+
     @Test
     public void shouldCaptureLogWithCorrectMessage() throws Exception {
-        
+
         logger.info("a message");
-        
+
         assertThat(inMemoryLogger, hasLog("a message"));
     }
-    
+
     @Test
     public void shouldCaptureLogWithCorrectLevel() throws Exception {
-        
+
         logger.info("a message");
-        
+
         assertThat(inMemoryLogger, hasLog("a message").onLevel(INFO));
     }
 
     @Test
     public void shouldCaptureLogWithCorrectLoggerName() throws Exception {
-    	
-    	logger.info("a message");
-    	
-    	assertThat(inMemoryLogger, hasLog("a message").withLoggerName(LOGGER_NAME));
+
+        logger.info("a message");
+
+        assertThat(inMemoryLogger, hasLog("a message").withLoggerName(LOGGER_NAME));
     }
 
     @Test
     public void shouldCaptureLogWithCorrectExceptionMessage() throws Exception {
-    	
-    	logger.error("a message", new IllegalArgumentException("illegal argument"));
-    	
-    	assertThat(inMemoryLogger, hasLog("a message").withException(IllegalArgumentException.class).withException("illegal argument"));
+
+        logger.error("a message", new IllegalArgumentException("illegal argument"));
+
+        assertThat(inMemoryLogger, hasLog("a message").withException(IllegalArgumentException.class).withException("illegal argument"));
     }
 
     @Test
     public void shouldCaptureLogWithCorrectExceptionClass() throws Exception {
-    	
-    	logger.error("a message", new IllegalArgumentException("illegal argument"));
-    	
-    	assertThat(inMemoryLogger, hasLog("a message").withException(IllegalArgumentException.class));
+
+        logger.error("a message", new IllegalArgumentException("illegal argument"));
+
+        assertThat(inMemoryLogger, hasLog("a message").withException(IllegalArgumentException.class));
     }
-    
+
     @Test
     public void shouldCaptureLogWithCorrectException() throws Exception {
-    	IllegalArgumentException expectedException = new IllegalArgumentException("illegal argument");
-    	
-		logger.error("a message", expectedException);
-    	
-    	assertThat(inMemoryLogger, hasLog("a message").withException(expectedException));
+        IllegalArgumentException expectedException = new IllegalArgumentException("illegal argument");
+
+        logger.error("a message", expectedException);
+
+        assertThat(inMemoryLogger, hasLog("a message").withException(expectedException));
     }
-    
+
     @Test
     public void shouldCaptureLogWithCorrectMdcValue() throws Exception {
-    	
-    	MDC.put("key", "value");
-    	logger.info("a message");
-    	MDC.remove("key");
-    	
-    	assertThat(inMemoryLogger, hasLog("a message").withMdc("key", "value"));
+
+        MDC.put("key", "value");
+        logger.info("a message");
+        MDC.remove("key");
+
+        assertThat(inMemoryLogger, hasLog("a message").withMdc("key", "value"));
     }
-    
+
     @Test
     public void shouldCaptureLogWithCorrectMdcValues() throws Exception {
-    	
-    	MDC.put("key1", "one");
-    	MDC.put("key2", "two");
-    	logger.info("a message");
-    	MDC.remove("key1");
-    	MDC.remove("key2");
-    	
-    	assertThat(inMemoryLogger, hasLog("a message").withMdc("key1", "one").withMdc("key2", "two"));
+
+        MDC.put("key1", "one");
+        MDC.put("key2", "two");
+        logger.info("a message");
+        MDC.remove("key1");
+        MDC.remove("key2");
+
+        assertThat(inMemoryLogger, hasLog("a message").withMdc("key1", "one").withMdc("key2", "two"));
     }
-    
+
     @Test
     public void shouldNotFindLogsOnDifferentLevels() throws Exception {
-    	
-    	logger.info("a message");
-    	
-    	assertThat(inMemoryLogger, hasLog("a message").onLevel(INFO));
 
-    	assertThat(inMemoryLogger, noLog("a message").onLevel(FATAL));
-    	assertThat(inMemoryLogger, noLog("a message").onLevel(ERROR));
-    	assertThat(inMemoryLogger, noLog("a message").onLevel(WARN));
-    	assertThat(inMemoryLogger, noLog("a message").onLevel(DEBUG));
-    	assertThat(inMemoryLogger, noLog("a message").onLevel(TRACE));
+        logger.info("a message");
+
+        assertThat(inMemoryLogger, hasLog("a message").onLevel(INFO));
+
+        assertThat(inMemoryLogger, noLog("a message").onLevel(FATAL));
+        assertThat(inMemoryLogger, noLog("a message").onLevel(ERROR));
+        assertThat(inMemoryLogger, noLog("a message").onLevel(WARN));
+        assertThat(inMemoryLogger, noLog("a message").onLevel(DEBUG));
+        assertThat(inMemoryLogger, noLog("a message").onLevel(TRACE));
     }
-    
+
     @Test
     public void shouldCaptureLogWithMatchingMessage() throws Exception {
-    	
-    	logger.info("a regex message");
-    	
-    	assertThat(inMemoryLogger, hasLogMatching("a regex message"));
-    	assertThat(inMemoryLogger, hasLogMatching("^a regex message$"));
-    	assertThat(inMemoryLogger, hasLogMatching("^a [a-z]* message$"));
+
+        logger.info("a regex message");
+
+        assertThat(inMemoryLogger, hasLogMatching("a regex message"));
+        assertThat(inMemoryLogger, hasLogMatching("^a regex message$"));
+        assertThat(inMemoryLogger, hasLogMatching("^a [a-z]* message$"));
     }
-    
+
 }

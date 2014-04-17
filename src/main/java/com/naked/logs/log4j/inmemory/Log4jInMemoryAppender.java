@@ -1,6 +1,5 @@
 package com.naked.logs.log4j.inmemory;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,7 +46,7 @@ public class Log4jInMemoryAppender extends AppenderSkeleton {
     }
     
     List<LoggingEvent> getCopyOfEvents() {
-        return new ArrayList<LoggingEvent>(events);
+        return new LinkedList<LoggingEvent>(events);
     }
 
     @Override

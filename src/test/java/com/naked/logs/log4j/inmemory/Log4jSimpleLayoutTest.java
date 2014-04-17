@@ -16,20 +16,20 @@ import com.naked.logs.log4j.inmemory.Log4jSimpleLayout;
 @RunWith(MockitoJUnitRunner.class)
 public class Log4jSimpleLayoutTest {
 
-	@Mock
-	private LoggingEvent event;
-	
-	@Test
-	public void shouldFormatLoggingEvent() throws Exception {
-		when(event.getLevel()).thenReturn(Level.INFO);
-		when(event.getMessage()).thenReturn("a message");
-		when(event.getLoggerName()).thenReturn("com.some.package");
-		
-		Log4jSimpleLayout layout = new Log4jSimpleLayout();
-		
-		String format = layout.format(event);
-		
-		assertThat(format, equalTo("INFO com.some.package a message"));
-	}
-	
+    @Mock
+    private LoggingEvent event;
+
+    @Test
+    public void shouldFormatLoggingEvent() throws Exception {
+        when(event.getLevel()).thenReturn(Level.INFO);
+        when(event.getMessage()).thenReturn("a message");
+        when(event.getLoggerName()).thenReturn("com.some.package");
+
+        Log4jSimpleLayout layout = new Log4jSimpleLayout();
+
+        String format = layout.format(event);
+
+        assertThat(format, equalTo("INFO com.some.package a message"));
+    }
+
 }

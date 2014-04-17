@@ -20,71 +20,70 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class Log4jRegexLogMatcherTest {
 
-	@Mock
-	private Log4jInMemoryLogger inMemoryLog4jLogger;
-	@Mock
-	private LoggingEvent event;
+    @Mock
+    private Log4jInMemoryLogger inMemoryLog4jLogger;
+    @Mock
+    private LoggingEvent event;
 
-	private List<LoggingEvent> events;
-	private Log4jRegexLogMatcher regexLogMatcher;
-	private StringDescription description;
+    private List<LoggingEvent> events;
+    private Log4jRegexLogMatcher regexLogMatcher;
+    private StringDescription description;
 
-	@Before
-	public void before() throws Exception {
-		events = new LinkedList<LoggingEvent>();
-		events.add(event);
-		when(inMemoryLog4jLogger.getEvents()).thenReturn(events);
+    @Before
+    public void before() throws Exception {
+        events = new LinkedList<LoggingEvent>();
+        events.add(event);
+        when(inMemoryLog4jLogger.getEvents()).thenReturn(events);
 
-		description = new StringDescription();
-		
-		regexLogMatcher = new Log4jRegexLogMatcher("^expected message$");
-	}
-	
-	@Test
-	public void shouldReturnTrueWhenMessageRegexMatches() throws Exception {
-		when(event.getMessage()).thenReturn("expected message");
-		
-		boolean matches = regexLogMatcher.matchesSafely(inMemoryLog4jLogger);
-		
-		assertTrue(matches);
-	}
-	
-	@Test
-	public void shouldReturnFalseWhenNoMessageRegexMatch() throws Exception {
-		when(event.getMessage()).thenReturn("another message");
-		
-		boolean matches = regexLogMatcher.matchesSafely(inMemoryLog4jLogger);
-		
-		assertFalse(matches);
-	}
-	
-	@Test
-	public void shouldCreateDescriptionWhenNoLevelAndLoggerName() throws Exception {
-		regexLogMatcher.describeTo(description);
-		
-		assertThat(description.toString(), equalTo("\"<ALL [...] [matches: ^expected message$]>\""));
-	}
+        description = new StringDescription();
 
-	@Test
-	public void shouldCreateDescriptionWithLevel() throws Exception {
-		regexLogMatcher.onLevel(Level.INFO);
-		
-		regexLogMatcher.describeTo(description);
-		
-		assertThat(description.toString(), equalTo("\"<INFO [...] [matches: ^expected message$]>\""));
-	}
-	
-	@Test
-	public void shouldCreateDescriptionWithLoggerName() throws Exception {
-		regexLogMatcher.withLoggerName("com.logger.name");
-		
-		regexLogMatcher.describeTo(description);
-		
-		assertThat(description.toString(), equalTo("\"<ALL com.logger.name [matches: ^expected message$]>\""));
-	}
-	
+        regexLogMatcher = new Log4jRegexLogMatcher("^expected message$");
+    }
+
+    @Test
+    public void shouldReturnTrueWhenMessageRegexMatches() throws Exception {
+        when(event.getMessage()).thenReturn("expected message");
+
+        boolean matches = regexLogMatcher.matchesSafely(inMemoryLog4jLogger);
+
+        assertTrue(matches);
+    }
+
+    @Test
+    public void shouldReturnFalseWhenNoMessageRegexMatch() throws Exception {
+        when(event.getMessage()).thenReturn("another message");
+
+        boolean matches = regexLogMatcher.matchesSafely(inMemoryLog4jLogger);
+
+        assertFalse(matches);
+    }
+
+    @Test
+    public void shouldCreateDescriptionWhenNoLevelAndLoggerName() throws Exception {
+        regexLogMatcher.describeTo(description);
+
+        assertThat(description.toString(), equalTo("\"<ALL [...] [matches: ^expected message$]>\""));
+    }
+
+    @Test
+    public void shouldCreateDescriptionWithLevel() throws Exception {
+        regexLogMatcher.onLevel(Level.INFO);
+
+        regexLogMatcher.describeTo(description);
+
+        assertThat(description.toString(), equalTo("\"<INFO [...] [matches: ^expected message$]>\""));
+    }
+
+    @Test
+    public void shouldCreateDescriptionWithLoggerName() throws Exception {
+        regexLogMatcher.withLoggerName("com.logger.name");
+
+        regexLogMatcher.describeTo(description);
+
+        assertThat(description.toString(), equalTo("\"<ALL com.logger.name [matches: ^expected message$]>\""));
+    }
+
 }

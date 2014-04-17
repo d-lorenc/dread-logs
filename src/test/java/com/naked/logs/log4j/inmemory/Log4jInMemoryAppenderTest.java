@@ -21,114 +21,113 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.naked.logs.log4j.inmemory.Log4jInMemoryAppender;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class Log4jInMemoryAppenderTest {
 
-	@Mock
-	private LoggingEvent event;
-	@Mock
-	private Layout layout;
-	
-	@InjectMocks
-	private Log4jInMemoryAppender inMemoryAppender;
-	
-	
-	@Before
-	public void before() throws Exception {
-		when(layout.format(event)).thenReturn("expecte message");
-	}
-	
-	@Test
-	public void shouldStringifyAppender() throws Exception {
-		
-		inMemoryAppender.append(event);
-		String stringLog = inMemoryAppender.toString();
-		
-		assertThat(stringLog, equalTo("expecte message"));
-	}
+    @Mock
+    private LoggingEvent event;
+    @Mock
+    private Layout layout;
 
-	@Test
-	public void shouldReturnEvents() throws Exception {
-		inMemoryAppender.append(event);
-		
-		List<LoggingEvent> events = inMemoryAppender.getCopyOfEvents();
-		assertThat(events.get(0), sameInstance(event));
-	}
-	
-	@Test
-	public void shouldReturnSnapshotOfEvents() throws Exception {
-		inMemoryAppender.append(event);
-		List<LoggingEvent> events = inMemoryAppender.getCopyOfEvents();
+    @InjectMocks
+    private Log4jInMemoryAppender inMemoryAppender;
 
-		assertThat(events.size(), equalTo(1));
-		assertThat(events.get(0), sameInstance(event));
-		
-		inMemoryAppender.append(event);
-		
-		assertThat(events.size(), equalTo(1));
-		assertThat(events.get(0), sameInstance(event));
-	}
-	
-	@Test
-	public void shouldResetEvents() throws Exception {
-		inMemoryAppender.append(event);
-		assertThat(inMemoryAppender.getCopyOfEvents().size(), equalTo(1));
+    @Before
+    public void before() throws Exception {
+        when(layout.format(event)).thenReturn("expecte message");
+    }
 
-		inMemoryAppender.reset();;
-		assertThat(inMemoryAppender.getCopyOfEvents().size(), equalTo(0));
-	}
-	
-	@Test
-	public void shouldNotPrintToStdOutByDefault() throws Exception {
-		
-		StdOutCaptor stdOutCaptor = new StdOutCaptor();
-		stdOutCaptor.start();
-		
-		try {
-			inMemoryAppender.enableStdOutLogging();
-			
-			inMemoryAppender.append(event);
-		
-			assertThat(stdOutCaptor.getAsSring(), equalTo("expecte message\n"));
-		} finally {		
-			stdOutCaptor.stop();
-		}
-	}
-	
-	@Test
-	public void shouldPrintToStdOut() throws Exception {
-		
-		StdOutCaptor stdOutCaptor = new StdOutCaptor();
-		stdOutCaptor.start();
-		
-		try {
-			inMemoryAppender.append(event);
-		
-			assertThat(stdOutCaptor.getAsSring(), isEmptyString());
-		} finally {		
-			stdOutCaptor.stop();
-		}
-	}
-	
-	private static class StdOutCaptor {
-		
-		private PrintStream originalSystemOut;
-		private ByteArrayOutputStream out;
+    @Test
+    public void shouldStringifyAppender() throws Exception {
 
-		public void start() {
-			originalSystemOut = System.out;
-			out = new ByteArrayOutputStream();
-			System.setOut(new PrintStream(out));
-		}
-		
-		public void stop() {
-			System.setOut(originalSystemOut);			
-		}
+        inMemoryAppender.append(event);
+        String stringLog = inMemoryAppender.toString();
 
-		public String getAsSring() {
-			return out.toString();
-		}
-	}
-	
+        assertThat(stringLog, equalTo("expecte message"));
+    }
+
+    @Test
+    public void shouldReturnEvents() throws Exception {
+        inMemoryAppender.append(event);
+
+        List<LoggingEvent> events = inMemoryAppender.getCopyOfEvents();
+        assertThat(events.get(0), sameInstance(event));
+    }
+
+    @Test
+    public void shouldReturnSnapshotOfEvents() throws Exception {
+        inMemoryAppender.append(event);
+        List<LoggingEvent> events = inMemoryAppender.getCopyOfEvents();
+
+        assertThat(events.size(), equalTo(1));
+        assertThat(events.get(0), sameInstance(event));
+
+        inMemoryAppender.append(event);
+
+        assertThat(events.size(), equalTo(1));
+        assertThat(events.get(0), sameInstance(event));
+    }
+
+    @Test
+    public void shouldResetEvents() throws Exception {
+        inMemoryAppender.append(event);
+        assertThat(inMemoryAppender.getCopyOfEvents().size(), equalTo(1));
+
+        inMemoryAppender.reset();
+        ;
+        assertThat(inMemoryAppender.getCopyOfEvents().size(), equalTo(0));
+    }
+
+    @Test
+    public void shouldNotPrintToStdOutByDefault() throws Exception {
+
+        StdOutCaptor stdOutCaptor = new StdOutCaptor();
+        stdOutCaptor.start();
+
+        try {
+            inMemoryAppender.enableStdOutLogging();
+
+            inMemoryAppender.append(event);
+
+            assertThat(stdOutCaptor.getAsSring(), equalTo("expecte message\n"));
+        } finally {
+            stdOutCaptor.stop();
+        }
+    }
+
+    @Test
+    public void shouldPrintToStdOut() throws Exception {
+
+        StdOutCaptor stdOutCaptor = new StdOutCaptor();
+        stdOutCaptor.start();
+
+        try {
+            inMemoryAppender.append(event);
+
+            assertThat(stdOutCaptor.getAsSring(), isEmptyString());
+        } finally {
+            stdOutCaptor.stop();
+        }
+    }
+
+    private static class StdOutCaptor {
+
+        private PrintStream originalSystemOut;
+        private ByteArrayOutputStream out;
+
+        public void start() {
+            originalSystemOut = System.out;
+            out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+        }
+
+        public void stop() {
+            System.setOut(originalSystemOut);
+        }
+
+        public String getAsSring() {
+            return out.toString();
+        }
+    }
+
 }
