@@ -23,7 +23,7 @@ import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class LogMatcherTest {
+public class Log4jLogMatcherTest {
 
 	@Mock
 	private Log4jInMemoryLogger inMemoryLog4jLogger;
@@ -33,7 +33,7 @@ public class LogMatcherTest {
 	private NullPointerException exception = new NullPointerException("exception message");
 	private List<LoggingEvent> events;
 	
-	private LogMatcher logMatcher;
+	private Log4jLogMatcher logMatcher;
 
 	@Before
 	public void before() throws Exception {
@@ -47,7 +47,7 @@ public class LogMatcherTest {
 		events.add(event);
 		when(inMemoryLog4jLogger.getEvents()).thenReturn(events);
 		
-		logMatcher = new LogMatcher(){
+		logMatcher = new Log4jLogMatcher(){
 			
 			public void describeTo(Description arg0) {
 			}

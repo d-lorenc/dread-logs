@@ -22,7 +22,7 @@ import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class RegexLogMatcherTest {
+public class Log4jRegexLogMatcherTest {
 
 	@Mock
 	private Log4jInMemoryLogger inMemoryLog4jLogger;
@@ -30,7 +30,7 @@ public class RegexLogMatcherTest {
 	private LoggingEvent event;
 
 	private List<LoggingEvent> events;
-	private RegexLogMatcher regexLogMatcher;
+	private Log4jRegexLogMatcher regexLogMatcher;
 	private StringDescription description;
 
 	@Before
@@ -41,7 +41,7 @@ public class RegexLogMatcherTest {
 
 		description = new StringDescription();
 		
-		regexLogMatcher = new RegexLogMatcher("^expected message$");
+		regexLogMatcher = new Log4jRegexLogMatcher("^expected message$");
 	}
 	
 	@Test

@@ -7,12 +7,12 @@ import org.hamcrest.TypeSafeMatcher;
 
 import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
-public class NoLogMatcher extends TypeSafeMatcher<Log4jInMemoryLogger> {
+public class Log4jNoLogMatcher extends TypeSafeMatcher<Log4jInMemoryLogger> {
 
 	private final String unwantedMessage;
 	private Level expectedLevel = Level.ALL;
 
-	public NoLogMatcher(String unwantedMessage) {
+	public Log4jNoLogMatcher(String unwantedMessage) {
 		this.unwantedMessage = unwantedMessage;
 	}
 
@@ -31,7 +31,7 @@ public class NoLogMatcher extends TypeSafeMatcher<Log4jInMemoryLogger> {
         return true;
 	}
 
-	public NoLogMatcher onLevel(Level expectedLevel) {
+	public Log4jNoLogMatcher onLevel(Level expectedLevel) {
 		this.expectedLevel = expectedLevel;
 		return this;
 	}

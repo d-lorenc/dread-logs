@@ -24,7 +24,7 @@ import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class NoLogMatcherTest {
+public class Log4jNoLogMatcherTest {
 
 	@Mock
 	private Log4jInMemoryLogger inMemoryLog4jLogger;
@@ -32,7 +32,7 @@ public class NoLogMatcherTest {
 	private LoggingEvent event;
 
 	private List<LoggingEvent> events;
-	private NoLogMatcher noLogMatcher;
+	private Log4jNoLogMatcher noLogMatcher;
 	private StringDescription description;
 
 	@Before
@@ -43,7 +43,7 @@ public class NoLogMatcherTest {
 
 		description = new StringDescription();
 		
-		noLogMatcher = new NoLogMatcher("expected message");
+		noLogMatcher = new Log4jNoLogMatcher("expected message");
 	}
 	
 	@Test

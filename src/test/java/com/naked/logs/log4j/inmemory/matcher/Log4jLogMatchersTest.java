@@ -5,25 +5,25 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 
-public class LogMatchersTest {
+public class Log4jLogMatchersTest {
 
 	@Test
 	public void shouldCreateHasLogMatcher() throws Exception {
-		HasLogMatcher hasLog = LogMatchers.hasLog("expected message");
+		Log4jHasLogMatcher hasLog = Log4jLogMatchers.hasLog("expected message");
 		
 		assertNotNull(hasLog);
 	}
 	
 	@Test
 	public void shouldCreateNoLogMatcher() throws Exception {
-		NoLogMatcher noLog = LogMatchers.noLog("unwanted message");
+		Log4jNoLogMatcher noLog = Log4jLogMatchers.noLog("unwanted message");
 		
 		assertNotNull(noLog);
 	}
 	
 	@Test
 	public void shouldCreateRegexLogMatcher() throws Exception {
-		RegexLogMatcher regexLog = LogMatchers.hasLogMatching("regex");
+		Log4jRegexLogMatcher regexLog = Log4jLogMatchers.hasLogMatching("regex");
 		
 		assertNotNull(regexLog);
 	}

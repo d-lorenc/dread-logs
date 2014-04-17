@@ -11,7 +11,7 @@ import org.hamcrest.TypeSafeMatcher;
 
 import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
-public abstract class LogMatcher extends TypeSafeMatcher<Log4jInMemoryLogger> {
+public abstract class Log4jLogMatcher extends TypeSafeMatcher<Log4jInMemoryLogger> {
 
 	private static final String EMPTY_VALUE = "[...]";
 	
@@ -113,32 +113,32 @@ public abstract class LogMatcher extends TypeSafeMatcher<Log4jInMemoryLogger> {
         return (expectedLevel.equals(Level.ALL) || event.getLevel().equals(expectedLevel));
     }
 
-	public LogMatcher onLevel(Level expectedLevel) {
+	public Log4jLogMatcher onLevel(Level expectedLevel) {
 		this.expectedLevel = expectedLevel;
 		return this;
 	}
 
-	public LogMatcher withLoggerName(String expectedLoggerName) {
+	public Log4jLogMatcher withLoggerName(String expectedLoggerName) {
 		this.expectedLoggerName = expectedLoggerName;
 		return this;
 	}
 
-	public LogMatcher withException(String expectedExceptionMessage) {
+	public Log4jLogMatcher withException(String expectedExceptionMessage) {
 		this.expectedExceptionMessage = expectedExceptionMessage;
 		return this;
 	}
 
-	public LogMatcher withException(Class<? extends Throwable> expectedExceptionClass) {
+	public Log4jLogMatcher withException(Class<? extends Throwable> expectedExceptionClass) {
 		this.expectedExceptionClass = expectedExceptionClass;
 		return this;
 	}
 	
-	public LogMatcher withException(Throwable expectedException) {
+	public Log4jLogMatcher withException(Throwable expectedException) {
 		this.expectedException = expectedException;
 		return this;
 	}
 
-	public LogMatcher withMdc(String expectedMdcKey, String expectedMdcValue) {
+	public Log4jLogMatcher withMdc(String expectedMdcKey, String expectedMdcValue) {
 		expectedMdcs.put(expectedMdcKey, expectedMdcValue);
 		return this;
 	}

@@ -1,8 +1,8 @@
 package com.naked.logs.log4j.functional;
 
-import static com.naked.logs.log4j.inmemory.matcher.LogMatchers.hasLog;
-import static com.naked.logs.log4j.inmemory.matcher.LogMatchers.hasLogMatching;
-import static com.naked.logs.log4j.inmemory.matcher.LogMatchers.noLog;
+import static com.naked.logs.log4j.inmemory.matcher.Log4jLogMatchers.hasLog;
+import static com.naked.logs.log4j.inmemory.matcher.Log4jLogMatchers.hasLogMatching;
+import static com.naked.logs.log4j.inmemory.matcher.Log4jLogMatchers.noLog;
 import static org.apache.log4j.Level.DEBUG;
 import static org.apache.log4j.Level.ERROR;
 import static org.apache.log4j.Level.FATAL;

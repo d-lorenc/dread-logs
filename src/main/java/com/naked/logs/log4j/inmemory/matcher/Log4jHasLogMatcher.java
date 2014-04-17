@@ -3,11 +3,11 @@ package com.naked.logs.log4j.inmemory.matcher;
 import org.apache.log4j.spi.LoggingEvent;
 import org.hamcrest.Description;
 
-public class HasLogMatcher extends LogMatcher {
+public class Log4jHasLogMatcher extends Log4jLogMatcher {
 
 	private final String expectedMessage;
 	
-	public HasLogMatcher(String expectedMessage) {
+	public Log4jHasLogMatcher(String expectedMessage) {
 		this.expectedMessage = expectedMessage;
 	}
 	
