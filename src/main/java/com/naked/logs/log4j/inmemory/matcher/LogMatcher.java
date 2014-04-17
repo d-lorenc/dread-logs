@@ -9,7 +9,7 @@ import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.ThrowableInformation;
 import org.hamcrest.TypeSafeMatcher;
 
-import com.naked.logs.log4j.Log4jInMemoryLogger;
+import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
 public abstract class LogMatcher extends TypeSafeMatcher<Log4jInMemoryLogger> {
 

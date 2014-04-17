@@ -1,4 +1,4 @@
-package com.naked.logs.log4j;
+package com.naked.logs.log4j.inmemory;
 
 import org.apache.log4j.Layout;
 import org.apache.log4j.spi.LoggingEvent;

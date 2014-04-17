@@ -5,7 +5,7 @@ import org.apache.log4j.spi.LoggingEvent;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-import com.naked.logs.log4j.Log4jInMemoryLogger;
+import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
 public class NoLogMatcher extends TypeSafeMatcher<Log4jInMemoryLogger> {
 

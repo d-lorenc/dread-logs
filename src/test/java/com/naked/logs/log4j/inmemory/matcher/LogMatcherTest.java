@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.naked.logs.log4j.Log4jInMemoryLogger;
+import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
 
 @RunWith(MockitoJUnitRunner.class)

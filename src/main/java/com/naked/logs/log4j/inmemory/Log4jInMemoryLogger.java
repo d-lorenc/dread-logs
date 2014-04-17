@@ -1,4 +1,4 @@
-package com.naked.logs.log4j;
+package com.naked.logs.log4j.inmemory;
 
 import java.util.List;
 

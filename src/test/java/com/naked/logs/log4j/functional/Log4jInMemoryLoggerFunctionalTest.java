@@ -18,7 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.naked.logs.log4j.Log4jInMemoryLogger;
+import com.naked.logs.log4j.inmemory.Log4jInMemoryLogger;
 
 public class Log4jInMemoryLoggerFunctionalTest {
 	

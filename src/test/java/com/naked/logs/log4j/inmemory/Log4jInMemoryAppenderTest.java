@@ -1,4 +1,4 @@
-package com.naked.logs.log4j;
+package com.naked.logs.log4j.inmemory;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isEmptyString;
@@ -18,6 +18,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.naked.logs.log4j.inmemory.Log4jInMemoryAppender;
 
 
 @RunWith(MockitoJUnitRunner.class)

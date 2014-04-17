@@ -1,4 +1,4 @@
-package com.naked.logs.log4j;
+package com.naked.logs.log4j.inmemory;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.naked.logs.log4j.inmemory.Log4jSimpleLayout;
 
 @RunWith(MockitoJUnitRunner.class)
 public class Log4jSimpleLayoutTest {
