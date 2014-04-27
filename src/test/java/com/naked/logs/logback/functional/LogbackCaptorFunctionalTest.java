@@ -20,6 +20,7 @@ import com.naked.logs.logback.captor.LogbackCaptor;
 public class LogbackCaptorFunctionalTest {
 
     private static final String LOGGER_NAME = "com.naked.logs.some.package";
+
     private Logger logger;
     private LogbackCaptor captor;
 

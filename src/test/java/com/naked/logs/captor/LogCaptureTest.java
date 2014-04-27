@@ -15,8 +15,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.naked.logs.captor.LogCapture;
-
 @RunWith(MockitoJUnitRunner.class)
 public class LogCaptureTest {
 
@@ -51,6 +49,18 @@ public class LogCaptureTest {
 
     @Test
     public void shouldReturnSnapshotOfCapturedLogs() throws Exception {
+        logCapture.capture(event);
+
+        List<LoggingEvent> capturedLogs = logCapture.getCapturedLogs();
+
+        logCapture.capture(anotherEvent);
+
+        assertThat(capturedLogs, hasSize(1));
+        assertThat(capturedLogs, hasItem(event));
+    }
+
+    @Test
+    public void shouldReturnedSnapshotOfCapturedLogsBeIndependent() throws Exception {
         logCapture.capture(event);
 
         logCapture.getCapturedLogs().add(anotherEvent);

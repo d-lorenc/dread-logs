@@ -1,15 +1,22 @@
 package com.naked.logs.captor;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class LogCapture<T> {
 
-    private final List<T> capturedLogs = Collections.synchronizedList(new LinkedList<T>());
+    private final List<T> capturedLogs = new LinkedList<T>();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void capture(T log) {
-        capturedLogs.add(log);
+        lock.writeLock().lock();
+        try {
+            capturedLogs.add(log);
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 
     public void reset() {
@@ -17,7 +24,12 @@ public class LogCapture<T> {
     }
 
     public List<T> getCapturedLogs() {
-        return new LinkedList<T>(capturedLogs);
+        lock.readLock().lock();
+        try {
+            return new LinkedList<T>(capturedLogs);
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 
 }
