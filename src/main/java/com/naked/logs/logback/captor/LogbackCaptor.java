@@ -9,6 +9,7 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
 import com.naked.logs.captor.Captor;
+import com.naked.logs.captor.LogCapture;
 
 public class LogbackCaptor implements Captor<ILoggingEvent> {
 
@@ -20,7 +21,7 @@ public class LogbackCaptor implements Captor<ILoggingEvent> {
     }
 
     public LogbackCaptor(String loggerName, Level level) {
-        this((Logger) LoggerFactory.getLogger(loggerName), new LogbackCapturingAppender(), level);
+        this((Logger) LoggerFactory.getLogger(loggerName), new LogbackCapturingAppender(new LogCapture<ILoggingEvent>()), level);
     }
 
     LogbackCaptor(Logger logger, LogbackCapturingAppender appender, Level level) {

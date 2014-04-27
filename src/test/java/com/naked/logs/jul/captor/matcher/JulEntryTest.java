@@ -1,5 +1,6 @@
 package com.naked.logs.jul.captor.matcher;
 
+import static java.util.logging.Level.INFO;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertEquals;
@@ -29,53 +30,48 @@ public class JulEntryTest {
     }
 
     @Test
-    public void shouldGetMessageOfLoggingEvent() throws Exception {
-        String expectedMessage = "message";
-        when(logRecord.getMessage()).thenReturn(expectedMessage);
+    public void shouldGetMessage() throws Exception {
+        when(logRecord.getMessage()).thenReturn("message");
 
         String message = julEntry.getMessage();
 
-        assertThat(message, equalTo(expectedMessage));
+        assertThat(message, equalTo("message"));
     }
 
     @Test
-    public void shouldGetLoggerNameOfLoggingEvent() throws Exception {
-        String expectedLoggerName = "com.naked.logs.some.package";
-        when(logRecord.getLoggerName()).thenReturn(expectedLoggerName);
+    public void shouldGetLoggerName() throws Exception {
+        when(logRecord.getLoggerName()).thenReturn("com.naked.logs.some.package");
 
         String loggerName = julEntry.getLoggerName();
 
-        assertThat(loggerName, equalTo(expectedLoggerName));
+        assertThat(loggerName, equalTo("com.naked.logs.some.package"));
     }
 
     @Test
-    public void shouldGetLevelOfLoggingEvent() throws Exception {
-        Level expectedLevel = Level.INFO;
-        when(logRecord.getLevel()).thenReturn(expectedLevel);
+    public void shouldGetLevel() throws Exception {
+        when(logRecord.getLevel()).thenReturn(INFO);
 
         Level level = julEntry.getLevel();
 
-        assertThat(level, equalTo(expectedLevel));
+        assertThat(level, equalTo(INFO));
     }
 
     @Test
     public void shouldGetExceptionMessageOfLoggingEvent() throws Exception {
-        String expectedExceptionMessage = "exception message";
-        when(logRecord.getThrown()).thenReturn(new Exception(expectedExceptionMessage));
+        when(logRecord.getThrown()).thenReturn(new Exception("exception message"));
 
         String exceptionMessage = julEntry.getExceptionMessage();
 
-        assertThat(exceptionMessage, equalTo(expectedExceptionMessage));
+        assertThat(exceptionMessage, equalTo("exception message"));
     }
 
     @Test
     public void shouldGetExceptionClassOfLoggingEvent() throws Exception {
-        IllegalArgumentException expectedException = new IllegalArgumentException();
-        when(logRecord.getThrown()).thenReturn(expectedException);
+        when(logRecord.getThrown()).thenReturn(new IllegalArgumentException());
 
         String exceptionClassName = julEntry.getExceptionClassName();
 
-        assertEquals(expectedException.getClass().getName(), exceptionClassName);
+        assertEquals(IllegalArgumentException.class.getName(), exceptionClassName);
     }
 
     @Test
@@ -98,9 +94,7 @@ public class JulEntryTest {
 
     @Test
     public void shouldGetNullAsJulDoesNotSupportMdc() throws Exception {
-        String mdcKey = "any key";
-
-        String mdcValue = julEntry.getMdcValue(mdcKey );
+        String mdcValue = julEntry.getMdcValue("any key" );
 
         assertThat(mdcValue, nullValue());
     }

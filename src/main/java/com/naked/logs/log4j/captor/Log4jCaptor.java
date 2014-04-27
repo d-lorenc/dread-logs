@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 
 import com.naked.logs.captor.Captor;
+import com.naked.logs.captor.LogCapture;
 
 public class Log4jCaptor implements Captor<LoggingEvent> {
 
@@ -23,7 +24,7 @@ public class Log4jCaptor implements Captor<LoggingEvent> {
     }
 
     Log4jCaptor(String loggerName, Level level, Layout layout) {
-        this(Logger.getLogger(loggerName), new Log4jCapturingAppender(layout), level);
+        this(Logger.getLogger(loggerName), new Log4jCapturingAppender(layout, new LogCapture<LoggingEvent>()), level);
     }
 
     Log4jCaptor(Logger logger, Log4jCapturingAppender appender, Level level) {

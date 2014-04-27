@@ -1,6 +1,5 @@
 package com.naked.logs.logback.captor;
 
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
@@ -30,13 +29,6 @@ public class LogbackCapturingAppenderTest {
 
     @InjectMocks
     private LogbackCapturingAppender capturingAppender;
-
-    @Test
-    public void shouldHaveDefaultConstructor() throws Exception {
-        LogbackCapturingAppender capturingAppender = new LogbackCapturingAppender();
-
-        assertThat(capturingAppender.getCapturedLogs(), empty());
-    }
 
     @Test
     public void shouldCaptureLoggingEvent() throws Exception {

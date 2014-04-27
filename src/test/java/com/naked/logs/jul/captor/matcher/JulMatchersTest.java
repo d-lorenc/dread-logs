@@ -10,28 +10,28 @@ import org.junit.Test;
 public class JulMatchersTest {
 
     @Test
-    public void shouldCreateHasLogMatcher() throws Exception {
+    public void shouldCreateHasLogMatcherForMessage() throws Exception {
         JulHasLogMatcher hasLog = JulMatchers.hasLog("expected message");
 
         assertNotNull(hasLog);
     }
 
     @Test
-    public void shouldCreateHasLogMatcherWithLevel() throws Exception {
+    public void shouldCreateHasLogMatcherForLevelAndMessage() throws Exception {
         JulHasLogMatcher hasLog = JulMatchers.hasLog(INFO, "expected message");
 
         assertNotNull(hasLog);
     }
 
     @Test
-    public void shouldCreateHasLogMatcherWithStringMatcher() throws Exception {
+    public void shouldCreateHasLogMatcherForStringMatcher() throws Exception {
         JulHasLogMatcher hasLog = JulMatchers.hasLog(containsString("message"));
 
         assertNotNull(hasLog);
     }
 
     @Test
-    public void shouldCreateHasLogMatcherWithLevelANdStringMatcher() throws Exception {
+    public void shouldCreateHasLogMatcherForLevelAndStringMatcher() throws Exception {
         JulHasLogMatcher hasLog = JulMatchers.hasLog(INFO, containsString("message"));
 
         assertNotNull(hasLog);

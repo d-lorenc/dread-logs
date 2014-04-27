@@ -12,11 +12,7 @@ public class Log4jCapturingAppender extends AppenderSkeleton {
 
     private final LogCapture<LoggingEvent> logCapture;
 
-    public Log4jCapturingAppender(Layout layout) {
-        this(layout, new LogCapture<LoggingEvent>());
-	}
-
-    Log4jCapturingAppender(Layout layout, LogCapture<LoggingEvent> logCapture) {
+    public Log4jCapturingAppender(Layout layout, LogCapture<LoggingEvent> logCapture) {
         this.layout = layout;
         this.logCapture = logCapture;
     }

@@ -10,11 +10,7 @@ public class JulCapturingHandler extends Handler {
 
     private final LogCapture<LogRecord> logCapture;
 
-    public JulCapturingHandler() {
-        this(new LogCapture<LogRecord>());
-    }
-
-    JulCapturingHandler(LogCapture<LogRecord> logCapture) {
+    public JulCapturingHandler(LogCapture<LogRecord> logCapture) {
         this.logCapture = logCapture;
     }
 

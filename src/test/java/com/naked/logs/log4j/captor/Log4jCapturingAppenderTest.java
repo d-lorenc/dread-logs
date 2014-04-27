@@ -1,7 +1,6 @@
 package com.naked.logs.log4j.captor;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertFalse;
@@ -24,7 +23,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.naked.logs.captor.LogCapture;
-import com.naked.logs.log4j.captor.Log4jCapturingAppender;
 
 @RunWith(MockitoJUnitRunner.class)
 public class Log4jCapturingAppenderTest {
@@ -42,13 +40,6 @@ public class Log4jCapturingAppenderTest {
     @Before
     public void before() throws Exception {
         when(layout.format(event)).thenReturn("expected message");
-    }
-
-    @Test
-    public void shouldHaveDefaultConstructor() throws Exception {
-        Log4jCapturingAppender capturingAppender = new Log4jCapturingAppender(layout);
-
-        assertThat(capturingAppender.getCapturedLogs(), empty());
     }
 
     @Test

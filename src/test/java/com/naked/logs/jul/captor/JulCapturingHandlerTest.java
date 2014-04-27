@@ -1,8 +1,6 @@
 package com.naked.logs.jul.captor;
 
-import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -19,7 +17,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.naked.logs.captor.LogCapture;
-import com.naked.logs.jul.captor.JulCapturingHandler;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JulCapturingHandlerTest {
@@ -31,13 +28,6 @@ public class JulCapturingHandlerTest {
 
     @InjectMocks
     private JulCapturingHandler capturingHandler;
-
-    @Test
-    public void shouldHaveDefaultConstructor() throws Exception {
-        JulCapturingHandler capturingHandler = new JulCapturingHandler();
-
-        assertThat(capturingHandler.getCapturedLogs(), empty());
-    }
 
     @Test
     public void shouldCaptureLogRecord() throws Exception {

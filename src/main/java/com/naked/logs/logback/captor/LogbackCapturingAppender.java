@@ -10,11 +10,7 @@ public class LogbackCapturingAppender extends AppenderBase<ILoggingEvent> {
 
     private final LogCapture<ILoggingEvent> logCapture;
 
-    public LogbackCapturingAppender() {
-        this(new LogCapture<ILoggingEvent>());
-    }
-
-    LogbackCapturingAppender(LogCapture<ILoggingEvent> logCapture) {
+    public LogbackCapturingAppender(LogCapture<ILoggingEvent> logCapture) {
         this.logCapture = logCapture;
     }
 

@@ -23,7 +23,7 @@ public class JulHasLogMatcherTest {
     @Mock
     private LogExpectations<Level> logExpectations;
     @Mock
-    private LogRecord log;
+    private LogRecord logRecord;
 
     private JulHasLogMatcher julHasLogMatcher;
 
@@ -33,10 +33,10 @@ public class JulHasLogMatcherTest {
     }
 
     @Test
-    public void shouldCreateLog4jEntryFromLoggingEvent() throws Exception {
-        when(log.getMessage()).thenReturn("message");
+    public void shouldCreateJulEntryFromLogRecord() throws Exception {
+        when(logRecord.getMessage()).thenReturn("message");
 
-        LogEntry<Level> logEntry = julHasLogMatcher.createLogEntry(log);
+        LogEntry<Level> logEntry = julHasLogMatcher.createLogEntry(logRecord);
 
         assertThat(logEntry.getMessage(), equalTo("message"));
     }

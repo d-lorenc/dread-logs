@@ -6,6 +6,7 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 import com.naked.logs.captor.Captor;
+import com.naked.logs.captor.LogCapture;
 
 public class JulCaptor implements Captor<LogRecord> {
 
@@ -17,7 +18,7 @@ public class JulCaptor implements Captor<LogRecord> {
     }
 
     public JulCaptor(String loggerName, Level level) {
-        this(Logger.getLogger(loggerName), new JulCapturingHandler(), level);
+        this(Logger.getLogger(loggerName), new JulCapturingHandler(new LogCapture<LogRecord>()), level);
     }
 
     JulCaptor(Logger logger, JulCapturingHandler handler, Level level) {
