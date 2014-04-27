@@ -1,8 +1,8 @@
 package com.naked.logs.log4j.functional;
 
-import static com.naked.logs.log4j.captor.matcher.Log4jLogMatchers.hasLog;
-import static com.naked.logs.log4j.captor.matcher.Log4jLogMatchers.hasLogMatching;
-import static com.naked.logs.log4j.captor.matcher.Log4jLogMatchers.noLog;
+import static com.naked.logs.log4j.captor.matcher.Log4jMatchers.hasLog;
+import static com.naked.logs.log4j.captor.matcher.Log4jMatchers.noLog;
+import static com.naked.logs.matcher.PatternMatcher.matches;
 import static org.apache.log4j.Level.*;
 import static org.junit.Assert.assertThat;
 
@@ -37,7 +37,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.fatal("fatal message");
 
-        assertThat(captor, hasLog("fatal message").onLevel(FATAL));
+        assertThat(captor, hasLog(FATAL, "fatal message"));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.fatal("fatal message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("fatal message").onLevel(FATAL).withException("an exception"));
+        assertThat(captor, hasLog(FATAL, "fatal message").withExceptionMessage("an exception"));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.error("error message");
 
-        assertThat(captor, hasLog("error message").onLevel(ERROR));
+        assertThat(captor, hasLog(ERROR, "error message"));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.error("error message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("error message").onLevel(ERROR).withException("an exception"));
+        assertThat(captor, hasLog(ERROR, "error message").withExceptionMessage("an exception"));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.warn("warn message");
 
-        assertThat(captor, hasLog("warn message").onLevel(WARN));
+        assertThat(captor, hasLog(WARN, "warn message"));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.warn("warn message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("warn message").onLevel(WARN).withException("an exception"));
+        assertThat(captor, hasLog(WARN, "warn message").withExceptionMessage("an exception"));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.info("info message");
 
-        assertThat(captor, hasLog("info message").onLevel(INFO));
+        assertThat(captor, hasLog(INFO, "info message"));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.info("info message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("info message").onLevel(INFO).withException("an exception"));
+        assertThat(captor, hasLog(INFO, "info message").withExceptionMessage("an exception"));
     }
 
     @Test
@@ -101,7 +101,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.debug("debug message");
 
-        assertThat(captor, hasLog("debug message").onLevel(DEBUG));
+        assertThat(captor, hasLog(DEBUG, "debug message"));
     }
 
     @Test
@@ -109,7 +109,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.debug("debug message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("debug message").onLevel(DEBUG).withException("an exception"));
+        assertThat(captor, hasLog(DEBUG, "debug message").withExceptionMessage("an exception"));
     }
 
     @Test
@@ -117,7 +117,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.trace("trace message");
 
-        assertThat(captor, hasLog("trace message").onLevel(TRACE));
+        assertThat(captor, hasLog(TRACE, "trace message"));
     }
 
     @Test
@@ -125,7 +125,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.trace("trace message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("trace message").onLevel(TRACE).withException("an exception"));
+        assertThat(captor, hasLog(TRACE, "trace message").withExceptionMessage("an exception"));
     }
 
     @Test
@@ -186,7 +186,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.info("a message");
 
-        assertThat(captor, hasLog("a message").onLevel(INFO));
+        assertThat(captor, hasLog(INFO, "a message"));
     }
 
     @Test
@@ -202,7 +202,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.error("a message", new IllegalArgumentException("illegal argument"));
 
-        assertThat(captor, hasLog("a message").withException(IllegalArgumentException.class).withException("illegal argument"));
+        assertThat(captor, hasLog("a message").withExceptionClass(IllegalArgumentException.class).withExceptionMessage("illegal argument"));
     }
 
     @Test
@@ -210,7 +210,7 @@ public class Log4jCaptorFunctionalTest {
 
         logger.error("a message", new IllegalArgumentException("illegal argument"));
 
-        assertThat(captor, hasLog("a message").withException(IllegalArgumentException.class));
+        assertThat(captor, hasLog("a message").withExceptionClass(IllegalArgumentException.class));
     }
 
     @Test
@@ -240,13 +240,13 @@ public class Log4jCaptorFunctionalTest {
 
         logger.info("a message");
 
-        assertThat(captor, hasLog("a message").onLevel(INFO));
+        assertThat(captor, hasLog(INFO, "a message"));
 
-        assertThat(captor, noLog("a message").onLevel(FATAL));
-        assertThat(captor, noLog("a message").onLevel(ERROR));
-        assertThat(captor, noLog("a message").onLevel(WARN));
-        assertThat(captor, noLog("a message").onLevel(DEBUG));
-        assertThat(captor, noLog("a message").onLevel(TRACE));
+        assertThat(captor, noLog(FATAL, "a message"));
+        assertThat(captor, noLog(ERROR, "a message"));
+        assertThat(captor, noLog(WARN, "a message"));
+        assertThat(captor, noLog(DEBUG, "a message"));
+        assertThat(captor, noLog(TRACE, "a message"));
     }
 
     @Test
@@ -254,9 +254,9 @@ public class Log4jCaptorFunctionalTest {
 
         logger.info("a regex message");
 
-        assertThat(captor, hasLogMatching("a regex message"));
-        assertThat(captor, hasLogMatching("^a regex message$"));
-        assertThat(captor, hasLogMatching("^a [a-z]* message$"));
+        assertThat(captor, hasLog(matches("a regex message")));
+        assertThat(captor, hasLog(matches("^a regex message$")));
+        assertThat(captor, hasLog(matches("^a [a-z]* message$")));
     }
 
 }

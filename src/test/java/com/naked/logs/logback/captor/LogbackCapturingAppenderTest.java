@@ -19,8 +19,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
 import com.naked.logs.captor.LogCapture;
-import com.naked.logs.logback.captor.LogbackCapturingAppender;
-
 
 @RunWith(MockitoJUnitRunner.class)
 public class LogbackCapturingAppenderTest {

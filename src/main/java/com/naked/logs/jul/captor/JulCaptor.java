@@ -5,7 +5,9 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-public class JulCaptor {
+import com.naked.logs.captor.Captor;
+
+public class JulCaptor implements Captor<LogRecord> {
 
     private final JulCapturingHandler handler;
     private final Logger logger;
@@ -24,6 +26,7 @@ public class JulCaptor {
 
         logger.setLevel(level);
         attachAppender(logger, handler);
+//        logger.setUseParentHandlers(false);
     }
 
     private void attachAppender(Logger logger, JulCapturingHandler handler) {

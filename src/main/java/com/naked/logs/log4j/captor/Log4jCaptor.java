@@ -7,7 +7,9 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
 
-public class Log4jCaptor {
+import com.naked.logs.captor.Captor;
+
+public class Log4jCaptor implements Captor<LoggingEvent> {
 
     private final Log4jCapturingAppender appender;
     private final Logger logger;

@@ -1,28 +1,22 @@
 package com.naked.logs.jul.captor.matcher;
 
+import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-import org.hamcrest.Description;
+import com.naked.logs.jul.captor.JulCaptor;
+import com.naked.logs.matcher.LogEntry;
+import com.naked.logs.matcher.LogExpectations;
+import com.naked.logs.matcher.LogMatcher;
 
-public class JulHasLogMatcher extends JulLogMatcher {
+public class JulHasLogMatcher extends LogMatcher<JulCaptor, LogRecord, Level> {
 
-    private final String expectedMessage;
-
-    public JulHasLogMatcher(String expectedMessage) {
-        this.expectedMessage = expectedMessage;
+    public JulHasLogMatcher(LogExpectations<Level> logExpectations) {
+        super(logExpectations);
     }
 
     @Override
-    protected boolean matchesMessage(LogRecord event) {
-        return containsMessage(event);
-    }
-
-    private boolean containsMessage(LogRecord event) {
-        return event.getMessage().toString().contains(expectedMessage);
-    }
-
-    public void describeTo(Description description) {
-        description.appendValue(String.format("<%s %s %s>", defaultIfNull(getExpectedLevel()), defaultIfNull(getExpectedLoggerName()), expectedMessage));
+    protected LogEntry<Level> createLogEntry(LogRecord log) {
+        return new JulEntry(log);
     }
 
 }

@@ -8,7 +8,9 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
-public class LogbackCaptor {
+import com.naked.logs.captor.Captor;
+
+public class LogbackCaptor implements Captor<ILoggingEvent> {
 
     private final LogbackCapturingAppender appender;
     private final Logger logger;

@@ -1,8 +1,8 @@
 package com.naked.logs.jul.functional;
 
-import static com.naked.logs.jul.captor.matcher.JulLogMatchers.hasLog;
-import static com.naked.logs.jul.captor.matcher.JulLogMatchers.hasLogMatching;
-import static com.naked.logs.jul.captor.matcher.JulLogMatchers.noLog;
+import static com.naked.logs.jul.captor.matcher.JulMatchers.hasLog;
+import static com.naked.logs.jul.captor.matcher.JulMatchers.noLog;
+import static com.naked.logs.matcher.PatternMatcher.matches;
 import static java.util.logging.Level.*;
 import static org.junit.Assert.assertThat;
 
@@ -44,7 +44,7 @@ public class JulCaptorFunctionalTest {
 
         logger.log(SEVERE, "severe message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("severe message").onLevel(SEVERE).withException("an exception"));
+        assertThat(captor, hasLog("severe message").onLevel(SEVERE).withExceptionMessage("an exception"));
     }
 
     @Test
@@ -60,7 +60,7 @@ public class JulCaptorFunctionalTest {
 
         logger.log(WARNING, "warning message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("warning message").onLevel(WARNING).withException("an exception"));
+        assertThat(captor, hasLog("warning message").onLevel(WARNING).withExceptionMessage("an exception"));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class JulCaptorFunctionalTest {
 
         logger.log(INFO, "info message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("info message").onLevel(INFO).withException("an exception"));
+        assertThat(captor, hasLog("info message").onLevel(INFO).withExceptionMessage("an exception"));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class JulCaptorFunctionalTest {
 
         logger.log(FINE, "fine message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("fine message").onLevel(FINE).withException("an exception"));
+        assertThat(captor, hasLog("fine message").onLevel(FINE).withExceptionMessage("an exception"));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class JulCaptorFunctionalTest {
 
         logger.log(FINER, "finer message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("finer message").onLevel(FINER).withException("an exception"));
+        assertThat(captor, hasLog("finer message").onLevel(FINER).withExceptionMessage("an exception"));
     }
 
     @Test
@@ -124,7 +124,7 @@ public class JulCaptorFunctionalTest {
 
         logger.log(FINEST, "finest message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("finest message").onLevel(FINEST).withException("an exception"));
+        assertThat(captor, hasLog("finest message").onLevel(FINEST).withExceptionMessage("an exception"));
     }
 
     @Test
@@ -201,7 +201,7 @@ public class JulCaptorFunctionalTest {
 
         logger.log(SEVERE, "a message", new IllegalArgumentException("illegal argument"));
 
-        assertThat(captor, hasLog("a message").withException(IllegalArgumentException.class).withException("illegal argument"));
+        assertThat(captor, hasLog("a message").withException(IllegalArgumentException.class, "illegal argument"));
     }
 
     @Test
@@ -209,7 +209,7 @@ public class JulCaptorFunctionalTest {
 
         logger.log(SEVERE, "a message", new IllegalArgumentException("illegal argument"));
 
-        assertThat(captor, hasLog("a message").withException(IllegalArgumentException.class));
+        assertThat(captor, hasLog("a message").withExceptionClass(IllegalArgumentException.class));
     }
 
     @Test
@@ -231,9 +231,9 @@ public class JulCaptorFunctionalTest {
 
         logger.info("a regex message");
 
-        assertThat(captor, hasLogMatching("a regex message"));
-        assertThat(captor, hasLogMatching("^a regex message$"));
-        assertThat(captor, hasLogMatching("^a [a-z]* message$"));
+        assertThat(captor, hasLog(matches("a regex message")));
+        assertThat(captor, hasLog(matches("^a regex message$")));
+        assertThat(captor, hasLog(matches("^a [a-z]* message$")));
     }
 
 }

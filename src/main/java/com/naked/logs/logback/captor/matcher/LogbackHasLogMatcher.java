@@ -1,28 +1,22 @@
 package com.naked.logs.logback.captor.matcher;
 
-import org.hamcrest.Description;
-
+import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
-public class LogbackHasLogMatcher extends LogbackLogMatcher {
+import com.naked.logs.logback.captor.LogbackCaptor;
+import com.naked.logs.matcher.LogEntry;
+import com.naked.logs.matcher.LogExpectations;
+import com.naked.logs.matcher.LogMatcher;
 
-    private final String expectedMessage;
+public class LogbackHasLogMatcher extends LogMatcher<LogbackCaptor, ILoggingEvent, Level> {
 
-    public LogbackHasLogMatcher(String expectedMessage) {
-        this.expectedMessage = expectedMessage;
+    public LogbackHasLogMatcher(LogExpectations<Level> logExpectations) {
+        super(logExpectations);
     }
 
     @Override
-    protected boolean matchesMessage(ILoggingEvent event) {
-        return containsMessage(event);
-    }
-
-    private boolean containsMessage(ILoggingEvent event) {
-        return event.getMessage().toString().contains(expectedMessage);
-    }
-
-    public void describeTo(Description description) {
-        description.appendValue(String.format("<%s %s %s>", defaultIfNull(getExpectedLevel()), defaultIfNull(getExpectedLoggerName()), expectedMessage));
+    protected LogEntry<Level> createLogEntry(ILoggingEvent log) {
+        return new LogbackEntry(log);
     }
 
 }

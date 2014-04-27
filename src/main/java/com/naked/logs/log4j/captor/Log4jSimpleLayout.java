@@ -7,6 +7,7 @@ public class Log4jSimpleLayout extends Layout {
 
     @Override
     public String format(LoggingEvent event) {
+        //TODO: better layout - which matches toString of the of the matcher
         return String.format("%s %s %s", event.getLevel().toString(), event.getLoggerName(), event.getMessage());
     }
 

@@ -1,9 +1,9 @@
 package com.naked.logs.logback.functional;
 
 import static ch.qos.logback.classic.Level.*;
-import static com.naked.logs.logback.captor.matcher.LogbackLogMatchers.hasLog;
-import static com.naked.logs.logback.captor.matcher.LogbackLogMatchers.hasLogMatching;
-import static com.naked.logs.logback.captor.matcher.LogbackLogMatchers.noLog;
+import static com.naked.logs.logback.captor.matcher.LogbackMatchers.hasLog;
+import static com.naked.logs.logback.captor.matcher.LogbackMatchers.noLog;
+import static com.naked.logs.matcher.PatternMatcher.matches;
 import static org.junit.Assert.assertThat;
 
 import org.junit.After;
@@ -47,7 +47,7 @@ public class LogbackCaptorFunctionalTest {
 
         logger.error("error message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("error message").onLevel(ERROR).withException("an exception"));
+        assertThat(captor, hasLog("error message").onLevel(ERROR).withExceptionMessage("an exception"));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class LogbackCaptorFunctionalTest {
 
         logger.warn("warn message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("warn message").onLevel(WARN).withException("an exception"));
+        assertThat(captor, hasLog("warn message").onLevel(WARN).withExceptionMessage("an exception"));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class LogbackCaptorFunctionalTest {
 
         logger.info("info message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("info message").onLevel(INFO).withException("an exception"));
+        assertThat(captor, hasLog("info message").onLevel(INFO).withExceptionMessage("an exception"));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class LogbackCaptorFunctionalTest {
 
         logger.debug("debug message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("debug message").onLevel(DEBUG).withException("an exception"));
+        assertThat(captor, hasLog("debug message").onLevel(DEBUG).withExceptionMessage("an exception"));
     }
 
     @Test
@@ -111,7 +111,7 @@ public class LogbackCaptorFunctionalTest {
 
         logger.trace("trace message", new Throwable("an exception"));
 
-        assertThat(captor, hasLog("trace message").onLevel(TRACE).withException("an exception"));
+        assertThat(captor, hasLog("trace message").onLevel(TRACE).withExceptionMessage("an exception"));
     }
 
     @Test
@@ -179,7 +179,7 @@ public class LogbackCaptorFunctionalTest {
 
         logger.error("a message", new IllegalArgumentException("illegal argument"));
 
-        assertThat(captor, hasLog("a message").withException(IllegalArgumentException.class).withException("illegal argument"));
+        assertThat(captor, hasLog("a message").withException(IllegalArgumentException.class, "illegal argument"));
     }
 
     @Test
@@ -187,7 +187,7 @@ public class LogbackCaptorFunctionalTest {
 
         logger.error("a message", new IllegalArgumentException("illegal argument"));
 
-        assertThat(captor, hasLog("a message").withException(IllegalArgumentException.class));
+        assertThat(captor, hasLog("a message").withExceptionClass(IllegalArgumentException.class));
     }
 
     @Test
@@ -230,9 +230,9 @@ public class LogbackCaptorFunctionalTest {
 
         logger.info("a regex message");
 
-        assertThat(captor, hasLogMatching("a regex message"));
-        assertThat(captor, hasLogMatching("^a regex message$"));
-        assertThat(captor, hasLogMatching("^a [a-z]* message$"));
+        assertThat(captor, hasLog(matches("a regex message")));
+        assertThat(captor, hasLog(matches("^a regex message$")));
+        assertThat(captor, hasLog(matches("^a [a-z]* message$")));
     }
 
 }
