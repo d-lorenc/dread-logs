@@ -30,7 +30,7 @@ public class LogbackMatchers {
     }
 
     public static LogbackNoLogMatcher noLog(String unwantedMessage) {
-        return new LogbackNoLogMatcher(unwantedMessage);
+        return (LogbackNoLogMatcher) new LogbackNoLogMatcher(new LogExpectations<Level>()).withMessage(unwantedMessage);
     }
 
     public static LogbackNoLogMatcher noLog(Level level, String unwantedMessage) {

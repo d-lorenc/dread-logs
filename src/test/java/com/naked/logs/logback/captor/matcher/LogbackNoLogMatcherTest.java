@@ -28,7 +28,7 @@ public class LogbackNoLogMatcherTest {
 
     @Before
     public void before() throws Exception {
-        logbackNoLogMatcher = new LogbackNoLogMatcher("message");
+        logbackNoLogMatcher = new LogbackNoLogMatcher(logExpectations);
     }
 
     @Test

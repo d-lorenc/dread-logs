@@ -39,6 +39,11 @@ public abstract class LogMatcher<CAPTOR extends Captor<LOG>, LOG, LEVEL> extends
         return this;
     }
 
+    public LogMatcher<CAPTOR, LOG, LEVEL> withExceptionMessage(Matcher<String> expectedExceptionMessageMatcher) {
+        logExpectations.setExpectedExceptionMessage(expectedExceptionMessageMatcher);
+        return this;
+    }
+
     public LogMatcher<CAPTOR, LOG, LEVEL> withExceptionClass(Class<? extends Throwable> expectedExceptionClass) {
         logExpectations.setExpectedExceptionClass(expectedExceptionClass);
         return this;
@@ -48,25 +53,24 @@ public abstract class LogMatcher<CAPTOR extends Captor<LOG>, LOG, LEVEL> extends
         return withExceptionClass(expectedExceptionClass).withExceptionMessage(expectedExceptionMessage);
     }
 
+    public LogMatcher<CAPTOR, LOG, LEVEL> withException(Class<? extends Throwable> expectedExceptionClass, Matcher<String> expectedExceptionMessageMatcher) {
+        return withExceptionClass(expectedExceptionClass).withExceptionMessage(expectedExceptionMessageMatcher);
+    }
+
+
     public LogMatcher<CAPTOR, LOG, LEVEL> withMdc(String expectedMdcKey, String expectedMdcValue) {
         logExpectations.addExpectedMdc(expectedMdcKey, expectedMdcValue);
         return this;
     }
 
-    protected abstract LogEntry<LEVEL> createLogEntry(LOG log);
-
-    @Override
-    protected boolean matchesSafely(CAPTOR captor) {
-        for (LOG log : captor.getCapturedLogs()) {
-            if (logExpectations.fulfilsExpectations(createLogEntry(log))) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void describeTo(Description description) {
         description.appendValue(logExpectations.toString());
     }
+
+    protected boolean fulfillsExpectations(LOG log) {
+        return logExpectations.fulfillsExpectations(createLogEntry(log));
+    }
+
+    protected abstract LogEntry<LEVEL> createLogEntry(LOG log);
 
 }

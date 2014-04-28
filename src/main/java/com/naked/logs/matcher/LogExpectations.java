@@ -17,7 +17,7 @@ public class LogExpectations<LEVEL> {
     private Class<? extends Throwable> expectedExceptionClass;
     private final Map<String, String> expectedMdcs = new HashMap<String, String>();
 
-    public boolean fulfilsExpectations(LogEntry<LEVEL> logEntry) {
+    public boolean fulfillsExpectations(LogEntry<LEVEL> logEntry) {
         return eventHasCorrectLevel(logEntry.getLevel())
                 && matchesMessage(logEntry.getMessage())
                 && matchesLoggerName(logEntry.getLoggerName())

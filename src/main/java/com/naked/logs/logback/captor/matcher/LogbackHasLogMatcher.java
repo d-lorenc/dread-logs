@@ -6,9 +6,9 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import com.naked.logs.logback.captor.LogbackCaptor;
 import com.naked.logs.matcher.LogEntry;
 import com.naked.logs.matcher.LogExpectations;
-import com.naked.logs.matcher.LogMatcher;
+import com.naked.logs.matcher.HasLogMatcher;
 
-public class LogbackHasLogMatcher extends LogMatcher<LogbackCaptor, ILoggingEvent, Level> {
+public class LogbackHasLogMatcher extends HasLogMatcher<LogbackCaptor, ILoggingEvent, Level> {
 
     public LogbackHasLogMatcher(LogExpectations<Level> logExpectations) {
         super(logExpectations);

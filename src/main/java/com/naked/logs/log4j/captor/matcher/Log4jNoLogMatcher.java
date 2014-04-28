@@ -5,12 +5,13 @@ import org.apache.log4j.spi.LoggingEvent;
 
 import com.naked.logs.log4j.captor.Log4jCaptor;
 import com.naked.logs.matcher.LogEntry;
+import com.naked.logs.matcher.LogExpectations;
 import com.naked.logs.matcher.NoLogMatcher;
 
 public class Log4jNoLogMatcher extends NoLogMatcher<Log4jCaptor, LoggingEvent, Level> {
 
-    public Log4jNoLogMatcher(String unwantedMessage) {
-        super(unwantedMessage);
+    public Log4jNoLogMatcher(LogExpectations<Level> logExpectations) {
+        super(logExpectations);
     }
 
     @Override

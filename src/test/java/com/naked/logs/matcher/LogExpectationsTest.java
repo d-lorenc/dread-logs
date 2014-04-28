@@ -48,7 +48,7 @@ public class LogExpectationsTest {
     public void shouldReturnTrueWhenNoExpectationsSpecified() throws Exception {
         LogExpectations<Level> emptyLogExpectations = new LogExpectations<Level>();
 
-        boolean matches = emptyLogExpectations.fulfilsExpectations(logEntry);
+        boolean matches = emptyLogExpectations.fulfillsExpectations(logEntry);
 
         assertTrue(matches);
     }
@@ -56,7 +56,7 @@ public class LogExpectationsTest {
     @Test
     public void shouldReturnTrueWhenAllExpectationsMatch() throws Exception {
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertTrue(matches);
     }
@@ -65,7 +65,7 @@ public class LogExpectationsTest {
     public void shouldReturnFalseWhenNoMessageMatch() throws Exception {
         logExpectations.setExpectedMessage("another message");
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertFalse(matches);
     }
@@ -74,7 +74,7 @@ public class LogExpectationsTest {
     public void shouldReturnFalseWhenMessageMatcherDoesNotMatch() throws Exception {
         logExpectations.setExpectedMessage(containsString("something else"));
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertFalse(matches);
     }
@@ -83,7 +83,7 @@ public class LogExpectationsTest {
     public void shouldReturnTrueWhenMessageMatcherMatches() throws Exception {
         logExpectations.setExpectedMessage(containsString("message"));
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertTrue(matches);
     }
@@ -92,7 +92,7 @@ public class LogExpectationsTest {
     public void shouldReturnFalseWhenNoLevelMatch() throws Exception {
         logExpectations.setExpectedLevel(WARN);
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertFalse(matches);
     }
@@ -101,7 +101,7 @@ public class LogExpectationsTest {
     public void shouldReturnFalseWhenNoLoggerNameMatch() throws Exception {
         logExpectations.setExpectedLoggerName("com.another.package");
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertFalse(matches);
     }
@@ -110,7 +110,7 @@ public class LogExpectationsTest {
     public void shouldReturnFalseWhenNoExceptionNameMatch() throws Exception {
         logExpectations.setExpectedExceptionMessage("another exception message");
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertFalse(matches);
     }
@@ -119,7 +119,7 @@ public class LogExpectationsTest {
     public void shouldReturnTrueWhenExceptionMessageMatcherMatches() throws Exception {
         logExpectations.setExpectedExceptionMessage(containsString("exception"));
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertTrue(matches);
     }
@@ -128,7 +128,7 @@ public class LogExpectationsTest {
     public void shouldReturnFalseWhenNoExceptionClassMatch() throws Exception {
         logExpectations.setExpectedExceptionClass(IllegalArgumentException.class);
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertFalse(matches);
     }
@@ -137,7 +137,7 @@ public class LogExpectationsTest {
     public void shouldReturnFalseWhenNoMdcFound() throws Exception {
         logExpectations.addExpectedMdc("another key", "another value");
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertFalse(matches);
     }
@@ -146,7 +146,7 @@ public class LogExpectationsTest {
     public void shouldReturnFalseWhenNoMdcValueMatch() throws Exception {
         logExpectations.addExpectedMdc("a key", "another value");
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertFalse(matches);
     }
@@ -155,7 +155,7 @@ public class LogExpectationsTest {
     public void shouldReturnFalseWhenExpectedMdcNull() throws Exception {
         logExpectations.addExpectedMdc("a key", null);
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertFalse(matches);
     }
@@ -165,7 +165,7 @@ public class LogExpectationsTest {
         when(logEntry.getMdcValue("a key")).thenReturn(null);
         logExpectations.addExpectedMdc("a key", null);
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertTrue(matches);
     }
@@ -176,7 +176,7 @@ public class LogExpectationsTest {
         logExpectations.addExpectedMdc("a key", "a value");
         logExpectations.addExpectedMdc("another key", "another value");
 
-        boolean matches = logExpectations.fulfilsExpectations(logEntry);
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
         assertTrue(matches);
     }

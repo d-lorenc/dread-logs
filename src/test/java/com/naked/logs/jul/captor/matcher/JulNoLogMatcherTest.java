@@ -28,7 +28,7 @@ public class JulNoLogMatcherTest {
 
     @Before
     public void before() throws Exception {
-        julNoLogMatcher = new JulNoLogMatcher("message");
+        julNoLogMatcher = new JulNoLogMatcher(logExpectations);
     }
 
     @Test

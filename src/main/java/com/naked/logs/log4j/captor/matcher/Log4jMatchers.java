@@ -29,7 +29,7 @@ public class Log4jMatchers {
     }
 
     public static Log4jNoLogMatcher noLog(String unwantedMessage) {
-        return new Log4jNoLogMatcher(unwantedMessage);
+        return (Log4jNoLogMatcher) new Log4jNoLogMatcher(new LogExpectations<Level>()).withMessage(unwantedMessage);
     }
 
     public static Log4jNoLogMatcher noLog(Level level, String unwantedMessage) {

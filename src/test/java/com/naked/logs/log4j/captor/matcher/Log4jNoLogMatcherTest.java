@@ -27,7 +27,7 @@ public class Log4jNoLogMatcherTest {
 
     @Before
     public void before() throws Exception {
-        log4jNoLogMatcher = new Log4jNoLogMatcher("message");
+        log4jNoLogMatcher = new Log4jNoLogMatcher(logExpectations);
     }
 
     @Test

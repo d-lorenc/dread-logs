@@ -15,7 +15,7 @@ public class LogCapture<T> {
         try {
             capturedLogs.add(log);
         } finally {
-            lock.readLock().unlock();
+            lock.writeLock().unlock();
         }
     }
 

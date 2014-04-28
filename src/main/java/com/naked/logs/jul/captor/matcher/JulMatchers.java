@@ -28,7 +28,7 @@ public class JulMatchers {
     }
 
     public static JulNoLogMatcher noLog(String unwantedMessage) {
-        return new JulNoLogMatcher(unwantedMessage);
+        return (JulNoLogMatcher) new JulNoLogMatcher(new LogExpectations<Level>()).withMessage(unwantedMessage);
     }
 
     public static JulNoLogMatcher noLog(Level level, String unwantedMessage) {

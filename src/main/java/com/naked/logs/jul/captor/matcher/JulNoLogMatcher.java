@@ -5,12 +5,13 @@ import java.util.logging.LogRecord;
 
 import com.naked.logs.jul.captor.JulCaptor;
 import com.naked.logs.matcher.LogEntry;
+import com.naked.logs.matcher.LogExpectations;
 import com.naked.logs.matcher.NoLogMatcher;
 
 public class JulNoLogMatcher extends NoLogMatcher<JulCaptor, LogRecord, Level> {
 
-    public JulNoLogMatcher(String unwantedMessage) {
-        super(unwantedMessage);
+    public JulNoLogMatcher(LogExpectations<Level> logExpectations) {
+        super(logExpectations);
     }
 
     @Override
