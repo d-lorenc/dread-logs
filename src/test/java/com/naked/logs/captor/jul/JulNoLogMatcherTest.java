@@ -15,7 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.naked.logs.captor.LogEntry;
 import com.naked.logs.captor.LogExpectations;
-import com.naked.logs.captor.jul.JulNoLogMatcher;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JulNoLogMatcherTest {
@@ -23,7 +22,7 @@ public class JulNoLogMatcherTest {
     @Mock
     private LogExpectations<Level> logExpectations;
     @Mock
-    private LogRecord log;
+    private LogRecord logRecord;
 
     private JulNoLogMatcher julNoLogMatcher;
 
@@ -33,10 +32,10 @@ public class JulNoLogMatcherTest {
     }
 
     @Test
-    public void shouldCreateLog4jEntryFromLoggingEvent() throws Exception {
-        when(log.getMessage()).thenReturn("message");
+    public void shouldCreateJulEntryFromLoggingRecord() throws Exception {
+        when(logRecord.getMessage()).thenReturn("message");
 
-        LogEntry<Level> logEntry = julNoLogMatcher.createLogEntry(log);
+        LogEntry<Level> logEntry = julNoLogMatcher.createLogEntry(logRecord);
 
         assertThat(logEntry.getMessage(), equalTo("message"));
     }

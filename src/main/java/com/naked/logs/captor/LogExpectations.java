@@ -21,9 +21,9 @@ public class LogExpectations<LEVEL> {
         return eventHasCorrectLevel(logEntry.getLevel())
                 && matchesMessage(logEntry.getMessage())
                 && matchesLoggerName(logEntry.getLoggerName())
-                && containsExceptionMessage(logEntry.getExceptionMessage())
-                && containsExceptionClass(logEntry.getExceptionClassName())
-                && containsMdc(logEntry);
+                && matchesExceptionMessage(logEntry.getExceptionMessage())
+                && matchesExceptionClass(logEntry.getExceptionClassName())
+                && matchesMdcs(logEntry);
     }
 
     private boolean eventHasCorrectLevel(LEVEL level) {
@@ -38,15 +38,15 @@ public class LogExpectations<LEVEL> {
         return expectedLoggerName == null || expectedLoggerName.equals(loggerName);
     }
 
-    private boolean containsExceptionMessage(String exceptionMessage) {
+    private boolean matchesExceptionMessage(String exceptionMessage) {
         return expectedExceptionMessageMatcher == null || expectedExceptionMessageMatcher.matches(exceptionMessage);
     }
 
-    private boolean containsExceptionClass(String exceptionClassName) {
+    private boolean matchesExceptionClass(String exceptionClassName) {
         return expectedExceptionClass == null || expectedExceptionClass.getName().equals(exceptionClassName);
     }
 
-    private boolean containsMdc(LogEntry<LEVEL> logEntry) {
+    private boolean matchesMdcs(LogEntry<LEVEL> logEntry) {
         if (expectedMdcs.isEmpty()) {
             return true;
         }
@@ -68,8 +68,8 @@ public class LogExpectations<LEVEL> {
         setExpectedMessage(equalTo(expectedMessage));
     }
 
-    public void setExpectedMessage(Matcher<String> messageMatcher) {
-        this.expectedMessageMatcher = messageMatcher;
+    public void setExpectedMessage(Matcher<String> expectedMessageMatcher) {
+        this.expectedMessageMatcher = expectedMessageMatcher;
     }
 
     public void setExpectedLoggerName(String expectedLoggerName) {

@@ -22,7 +22,7 @@ public class Log4jNoLogMatcherTest {
     @Mock
     private LogExpectations<Level> logExpectations;
     @Mock
-    private LoggingEvent log;
+    private LoggingEvent loggingEvent;
 
     private Log4jNoLogMatcher log4jNoLogMatcher;
 
@@ -33,9 +33,9 @@ public class Log4jNoLogMatcherTest {
 
     @Test
     public void shouldCreateLog4jEntryFromLoggingEvent() throws Exception {
-        when(log.getMessage()).thenReturn("message");
+        when(loggingEvent.getMessage()).thenReturn("message");
 
-        LogEntry<Level> logEntry = log4jNoLogMatcher.createLogEntry(log);
+        LogEntry<Level> logEntry = log4jNoLogMatcher.createLogEntry(loggingEvent);
 
         assertThat(logEntry.getMessage(), equalTo("message"));
     }

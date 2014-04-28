@@ -15,8 +15,8 @@ public class JulCapturingHandler extends Handler {
     }
 
     @Override
-    public void publish(LogRecord record) {
-        logCapture.capture(record);
+    public void publish(LogRecord logRecord) {
+        logCapture.capture(logRecord);
     }
 
     public void reset() {

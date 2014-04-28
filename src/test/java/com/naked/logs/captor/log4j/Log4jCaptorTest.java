@@ -19,9 +19,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.naked.logs.captor.log4j.Log4jCaptor;
-import com.naked.logs.captor.log4j.Log4jCapturingAppender;
-
 @RunWith(MockitoJUnitRunner.class)
 public class Log4jCaptorTest {
 
@@ -32,25 +29,25 @@ public class Log4jCaptorTest {
     @Mock
     private Layout layout;
 
-    private Log4jCaptor capturingLogger;
+    private Log4jCaptor log4jCaptor;
 
     @Before
     public void before() throws Exception {
-        capturingLogger = new Log4jCaptor(logger, appender, INFO);
+        log4jCaptor = new Log4jCaptor(logger, appender, INFO);
     }
 
     @Test
-    public void shouldCreateLoggerWithLoggerNameOnly() throws Exception {
+    public void shouldCreateWithLoggerNameOnly() throws Exception {
         new Log4jCaptor("name.only");
     }
 
     @Test
-    public void shouldCreateLoggerWithLoggerNameAndLevel() throws Exception {
+    public void shouldCreateWithLoggerNameAndLevel() throws Exception {
         new Log4jCaptor("name.and.level", INFO);
     }
 
     @Test
-    public void shouldCreateLoggerWithFullConstructor() throws Exception {
+    public void shouldCreateWithFullConstructor() throws Exception {
         new Log4jCaptor("name.and.level", INFO, layout);
     }
 
@@ -66,7 +63,7 @@ public class Log4jCaptorTest {
 
     @Test
     public void shouldDetachAppender() throws Exception {
-        capturingLogger.detachAppender();
+        log4jCaptor.detachAppender();
 
         verify(logger).removeAppender(appender);
     }
@@ -76,7 +73,7 @@ public class Log4jCaptorTest {
         List<LoggingEvent> expectedEvents = new LinkedList<LoggingEvent>();
         when(appender.getCapturedLogs()).thenReturn(expectedEvents);
 
-        List<LoggingEvent> actualEvents = capturingLogger.getCapturedLogs();
+        List<LoggingEvent> actualEvents = log4jCaptor.getCapturedLogs();
 
         assertThat(actualEvents, sameInstance(expectedEvents));
     }
@@ -85,7 +82,7 @@ public class Log4jCaptorTest {
     public void shouldStringifyAppender() throws Exception {
         when(appender.toString()).thenReturn("log lines");
 
-        String loggerString = capturingLogger.toString();
+        String loggerString = log4jCaptor.toString();
 
         assertThat(loggerString, equalTo("log lines"));
     }

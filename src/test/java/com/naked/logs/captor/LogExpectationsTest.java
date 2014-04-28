@@ -70,7 +70,7 @@ public class LogExpectationsTest {
     }
 
     @Test
-    public void shouldReturnFalseWhenMessageMatcherDoesNotMatch() throws Exception {
+    public void shouldReturnFalseWhenNoMessageMatcherMatch() throws Exception {
         logExpectations.setExpectedMessage(containsString("something else"));
 
         boolean matches = logExpectations.fulfillsExpectations(logEntry);
@@ -106,8 +106,17 @@ public class LogExpectationsTest {
     }
 
     @Test
-    public void shouldReturnFalseWhenNoExceptionNameMatch() throws Exception {
+    public void shouldReturnFalseWhenNoExceptionMessageMatch() throws Exception {
         logExpectations.setExpectedExceptionMessage("another exception message");
+
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
+
+        assertFalse(matches);
+    }
+
+    @Test
+    public void shouldReturnFalseWhenNoExceptionMessageMetcherMatch() throws Exception {
+        logExpectations.setExpectedExceptionMessage(containsString("another message"));
 
         boolean matches = logExpectations.fulfillsExpectations(logEntry);
 

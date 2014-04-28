@@ -23,7 +23,7 @@ public class LogbackNoLogMatcherTest {
     @Mock
     private LogExpectations<Level> logExpectations;
     @Mock
-    private ILoggingEvent log;
+    private ILoggingEvent loggingEvent;
 
     private LogbackNoLogMatcher logbackNoLogMatcher;
 
@@ -34,9 +34,9 @@ public class LogbackNoLogMatcherTest {
 
     @Test
     public void shouldCreateLogbackEntryFromLoggingEvent() throws Exception {
-        when(log.getMessage()).thenReturn("message");
+        when(loggingEvent.getMessage()).thenReturn("message");
 
-        LogEntry<Level> logEntry = logbackNoLogMatcher.createLogEntry(log);
+        LogEntry<Level> logEntry = logbackNoLogMatcher.createLogEntry(loggingEvent);
 
         assertThat(logEntry.getMessage(), equalTo("message"));
     }

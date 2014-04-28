@@ -3,7 +3,6 @@ package com.naked.logs.captor.jul;
 import static java.util.logging.Level.INFO;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -15,8 +14,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import com.naked.logs.captor.jul.JulEntry;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JulEntryTest {
@@ -59,7 +56,7 @@ public class JulEntryTest {
     }
 
     @Test
-    public void shouldGetExceptionMessageOfLoggingEvent() throws Exception {
+    public void shouldGetExceptionMessage() throws Exception {
         when(logRecord.getThrown()).thenReturn(new Exception("exception message"));
 
         String exceptionMessage = julEntry.getExceptionMessage();
@@ -68,16 +65,16 @@ public class JulEntryTest {
     }
 
     @Test
-    public void shouldGetExceptionClassOfLoggingEvent() throws Exception {
+    public void shouldGetExceptionClass() throws Exception {
         when(logRecord.getThrown()).thenReturn(new IllegalArgumentException());
 
         String exceptionClassName = julEntry.getExceptionClassName();
 
-        assertEquals(IllegalArgumentException.class.getName(), exceptionClassName);
+        assertThat(exceptionClassName, equalTo(IllegalArgumentException.class.getName()));
     }
 
     @Test
-    public void shouldReturnNullExceptionMessageWhenNoThrowable() throws Exception {
+    public void shouldReturnNullExceptionMessageWhenNoThrown() throws Exception {
         when(logRecord.getThrown()).thenReturn(null);
 
         String exceptionMessage = julEntry.getExceptionMessage();
@@ -86,7 +83,7 @@ public class JulEntryTest {
     }
 
     @Test
-    public void shouldNullReturnExceptionClassWhenNoThrowableOfLoggingEvent() throws Exception {
+    public void shouldReturnNullExceptionClassWhenNoThrown() throws Exception {
         when(logRecord.getThrown()).thenReturn(null);
 
         String exceptionClassName = julEntry.getExceptionClassName();
@@ -95,8 +92,8 @@ public class JulEntryTest {
     }
 
     @Test
-    public void shouldGetNullAsJulDoesNotSupportMdc() throws Exception {
-        String mdcValue = julEntry.getMdcValue("any key" );
+    public void shouldGetNullMdcAsJulDoesNotSupportMdc() throws Exception {
+        String mdcValue = julEntry.getMdcValue("any key");
 
         assertThat(mdcValue, nullValue());
     }

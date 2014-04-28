@@ -60,7 +60,7 @@ public class LogCaptureTest {
     }
 
     @Test
-    public void shouldReturnedSnapshotOfCapturedLogsBeIndependent() throws Exception {
+    public void shouldNotBeAbleToAddToCapturedLogList() throws Exception {
         logCapture.capture(event);
 
         logCapture.getCapturedLogs().add(anotherEvent);

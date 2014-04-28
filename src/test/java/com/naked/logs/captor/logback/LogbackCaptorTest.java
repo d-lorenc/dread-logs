@@ -16,9 +16,6 @@ import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import com.naked.logs.captor.logback.LogbackCaptor;
-import com.naked.logs.captor.logback.LogbackCapturingAppender;
-
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
@@ -31,20 +28,20 @@ public class LogbackCaptorTest {
     @Mock
     private LogbackCapturingAppender appender;
 
-    private LogbackCaptor capturingLogger;
+    private LogbackCaptor logbackCaptor;
 
     @Before
     public void before() throws Exception {
-        capturingLogger = new LogbackCaptor(logger, appender, INFO);
+        logbackCaptor = new LogbackCaptor(logger, appender, INFO);
     }
 
     @Test
-    public void shouldCreateLoggerWithLoggerNameOnly() throws Exception {
+    public void shouldCreateWithLoggerNameOnly() throws Exception {
         new LogbackCaptor("name.only");
     }
 
     @Test
-    public void shouldCreateLoggerWithLoggerNameAndLevel() throws Exception {
+    public void shouldCreateWithLoggerNameAndLevel() throws Exception {
         new LogbackCaptor("name.and.level", INFO);
     }
 
@@ -60,7 +57,7 @@ public class LogbackCaptorTest {
 
     @Test
     public void shouldDetachAppender() throws Exception {
-        capturingLogger.detachAppender();
+        logbackCaptor.detachAppender();
 
         verify(logger).detachAppender(appender);
     }
@@ -70,7 +67,7 @@ public class LogbackCaptorTest {
         List<ILoggingEvent> expectedEvents = new LinkedList<ILoggingEvent>();
         when(appender.getCapturedLogs()).thenReturn(expectedEvents);
 
-        List<ILoggingEvent> actualEvents = capturingLogger.getCapturedLogs();
+        List<ILoggingEvent> actualEvents = logbackCaptor.getCapturedLogs();
 
         assertThat(actualEvents, sameInstance(expectedEvents));
     }

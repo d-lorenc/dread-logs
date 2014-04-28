@@ -66,5 +66,4 @@ public class Log4jMatchersTest {
         assertNotNull(noLog);
     }
 
-
 }

@@ -1,5 +1,6 @@
 package com.naked.logs.captor;
 
+import static org.apache.log4j.Level.TRACE;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
@@ -42,7 +43,6 @@ public class LogMatcherTest {
     public void before() throws Exception {
         logMatcher = new LogMatcher<Log4jCaptor, LoggingEvent, Level>(logExpectations) {
 
-
             @Override
             protected LogEntry<Level> createLogEntry(LoggingEvent log) {
                 return logEntry;
@@ -57,14 +57,15 @@ public class LogMatcherTest {
 
     @Test
     public void shouldSetExpectedMessage() throws Exception {
-        String expectedMessage = "expected message";
-        logMatcher.withMessage(expectedMessage);
 
-        verify(logExpectations).setExpectedMessage(expectedMessage);
+        logMatcher.withMessage("expected message");
+
+        verify(logExpectations).setExpectedMessage("expected message");
     }
 
     @Test
     public void shouldSetExpectedMessageMatcher() throws Exception {
+
         logMatcher.withMessage(stringMatcher);
 
         verify(logExpectations).setExpectedMessage(stringMatcher);
@@ -72,30 +73,30 @@ public class LogMatcherTest {
 
     @Test
     public void shouldSetExpectedLevel() throws Exception {
-        Level expectedLevel = Level.TRACE;
-        logMatcher.onLevel(expectedLevel);
+        logMatcher.onLevel(TRACE);
 
-        verify(logExpectations).setExpectedLevel(expectedLevel);
+        verify(logExpectations).setExpectedLevel(TRACE);
     }
 
     @Test
     public void shouldSetExpectedLoggerName() throws Exception {
-        String expectedLoggerName = "com.naked.logs.some.package";
-        logMatcher.withLoggerName(expectedLoggerName);
 
-        verify(logExpectations).setExpectedLoggerName(expectedLoggerName);
+        logMatcher.withLoggerName("com.naked.logs.some.package");
+
+        verify(logExpectations).setExpectedLoggerName("com.naked.logs.some.package");
     }
 
     @Test
     public void shouldSetExpectedExceptionMessage() throws Exception {
-        String expectedExceptionMessage = "exception message";
-        logMatcher.withExceptionMessage(expectedExceptionMessage);
 
-        verify(logExpectations).setExpectedExceptionMessage(expectedExceptionMessage);
+        logMatcher.withExceptionMessage("exception message");
+
+        verify(logExpectations).setExpectedExceptionMessage("exception message");
     }
 
     @Test
     public void shouldSetExpectedExceptionMessageMatcher() throws Exception {
+
         logMatcher.withExceptionMessage(stringMatcher);
 
         verify(logExpectations).setExpectedExceptionMessage(stringMatcher);
@@ -103,48 +104,45 @@ public class LogMatcherTest {
 
     @Test
     public void shouldSetExpectedExceptionClass() throws Exception {
-        Class<? extends Throwable> expectedExceptionClass = Throwable.class;
-        logMatcher.withExceptionClass(expectedExceptionClass);
 
-        verify(logExpectations).setExpectedExceptionClass(expectedExceptionClass);
+        logMatcher.withExceptionClass(Throwable.class);
+
+        verify(logExpectations).setExpectedExceptionClass(Throwable.class);
     }
 
     @Test
     public void shouldSetExpectedExceptionMessageAndClass() throws Exception {
-        String expectedExceptionMessage = "exception message";
-        Class<? extends Throwable> expectedExceptionClass = Throwable.class;
-        logMatcher.withException(expectedExceptionClass, expectedExceptionMessage);
 
-        verify(logExpectations).setExpectedExceptionMessage(expectedExceptionMessage);
-        verify(logExpectations).setExpectedExceptionClass(expectedExceptionClass);
+        logMatcher.withException(Throwable.class, "exception message");
+
+        verify(logExpectations).setExpectedExceptionMessage("exception message");
+        verify(logExpectations).setExpectedExceptionClass(Throwable.class);
     }
 
     @Test
     public void shouldSetExpectedExceptionMessageMatcherAndClass() throws Exception {
-        Class<? extends Throwable> expectedExceptionClass = Throwable.class;
-        logMatcher.withException(expectedExceptionClass, stringMatcher);
+
+        logMatcher.withException(Throwable.class, stringMatcher);
 
         verify(logExpectations).setExpectedExceptionMessage(stringMatcher);
-        verify(logExpectations).setExpectedExceptionClass(expectedExceptionClass);
+        verify(logExpectations).setExpectedExceptionClass(Throwable.class);
     }
 
     @Test
     public void shouldAddExpectedMdc() throws Exception {
-        String expectedMdcKey = "key";
-        String expectedMdcValue = "value";
-        logMatcher.withMdc(expectedMdcKey, expectedMdcValue);
 
-        verify(logExpectations).addExpectedMdc(expectedMdcKey, expectedMdcValue);
+        logMatcher.withMdc("key", "value");
+
+        verify(logExpectations).addExpectedMdc("key", "value");
     }
 
     @Test
     public void shouldAppendDescription() throws Exception {
-        String logExpectationsString = "log expectations";
-        when(logExpectations.toString()).thenReturn(logExpectationsString);
+        when(logExpectations.toString()).thenReturn("log expectations");
 
         logMatcher.describeTo(description);
 
-        verify(description).appendValue(logExpectationsString);
+        verify(description).appendValue("log expectations");
     }
 
     @Test

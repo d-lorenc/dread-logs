@@ -17,9 +17,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.naked.logs.captor.jul.JulCaptor;
-import com.naked.logs.captor.jul.JulCapturingHandler;
-
 @RunWith(MockitoJUnitRunner.class)
 public class JulCaptorTest {
 
@@ -28,20 +25,20 @@ public class JulCaptorTest {
     @Mock
     private JulCapturingHandler handler;
 
-    private JulCaptor capturingLogger;
+    private JulCaptor julCaptor;
 
     @Before
     public void before() throws Exception {
-        capturingLogger = new JulCaptor(logger, handler, INFO);
+        julCaptor = new JulCaptor(logger, handler, INFO);
     }
 
     @Test
-    public void shouldCreateLoggerWithLoggerNameOnly() throws Exception {
+    public void shouldCreateWithLoggerNameOnly() throws Exception {
         new JulCaptor("name.only");
     }
 
     @Test
-    public void shouldCreateLoggerWithLoggerNameAndLevel() throws Exception {
+    public void shouldCreateWithLoggerNameAndLevel() throws Exception {
         new JulCaptor("name.and.level", INFO);
     }
 
@@ -51,25 +48,25 @@ public class JulCaptorTest {
     }
 
     @Test
-    public void shouldAttachAppenderToLoggerOnConstruction() throws Exception {
+    public void shouldAttachHandlerToLoggerOnConstruction() throws Exception {
         verify(logger).addHandler(handler);
     }
 
     @Test
     public void shouldDetachAppender() throws Exception {
-        capturingLogger.detachAppender();
+        julCaptor.detachAppender();
 
         verify(logger).removeHandler(handler);
     }
 
     @Test
-    public void shouldReturnLoggingEvents() throws Exception {
-        List<LogRecord> expectedEvents = new LinkedList<LogRecord>();
-        when(handler.getCapturedLogs()).thenReturn(expectedEvents);
+    public void shouldReturnLogRecords() throws Exception {
+        List<LogRecord> expectedRecords = new LinkedList<LogRecord>();
+        when(handler.getCapturedLogs()).thenReturn(expectedRecords);
 
-        List<LogRecord> actualEvents = capturingLogger.getCapturedLogs();
+        List<LogRecord> actualRecords = julCaptor.getCapturedLogs();
 
-        assertThat(actualEvents, sameInstance(expectedEvents));
+        assertThat(actualRecords, sameInstance(expectedRecords));
     }
 
 }

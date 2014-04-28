@@ -1,6 +1,7 @@
 package com.naked.logs.captor.jul;
 
-import static org.junit.Assert.assertSame;
+import static org.hamcrest.Matchers.sameInstance;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -10,14 +11,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.LogRecord;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.naked.logs.captor.LogCapture;
-import com.naked.logs.captor.jul.JulCapturingHandler;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JulCapturingHandlerTest {
@@ -27,8 +27,13 @@ public class JulCapturingHandlerTest {
     @Mock
     private LogRecord logRecord;
 
-    @InjectMocks
     private JulCapturingHandler capturingHandler;
+
+
+    @Before
+    public void before() throws Exception {
+        capturingHandler = new JulCapturingHandler(logCapture);
+    }
 
     @Test
     public void shouldCaptureLogRecord() throws Exception {
@@ -55,7 +60,7 @@ public class JulCapturingHandlerTest {
 
         List<LogRecord> capturedLogs = capturingHandler.getCapturedLogs();
 
-        assertSame(expectedList, capturedLogs);
+        assertThat(capturedLogs, sameInstance(expectedList));
 
         verify(logCapture).getCapturedLogs();
         verifyNoMoreInteractions(logCapture);

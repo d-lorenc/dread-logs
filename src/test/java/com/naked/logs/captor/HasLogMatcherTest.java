@@ -1,12 +1,14 @@
 package com.naked.logs.captor;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
@@ -28,8 +30,6 @@ public class HasLogMatcherTest {
     private Log4jCaptor captor;
     @Mock
     private LoggingEvent logOne, logTwo;
-    @Mock
-    private Log4jEntry logEntryOne, logEntryTwo;
 
     private HasLogMatcher<Log4jCaptor, LoggingEvent, Level> hasLogMatcher;
 
@@ -38,53 +38,49 @@ public class HasLogMatcherTest {
         hasLogMatcher = new HasLogMatcher<Log4jCaptor, LoggingEvent, Level>(logExpectations) {
             @Override
             protected LogEntry<Level> createLogEntry(LoggingEvent log) {
-                if (log == logOne) {
-                    return logEntryOne;
-                }
-                return logEntryTwo;
+                return null;
             }
         };
 
-        List<LoggingEvent> logs = new LinkedList<LoggingEvent>();
-        logs.add(logOne);
-        logs.add(logTwo);
-        when(captor.getCapturedLogs()).thenReturn(logs);
+        when(captor.getCapturedLogs()).thenReturn(asList(logOne, logTwo));
     }
 
     @Test
     public void shouldReturnFalseWhenNoLogEntries() throws Exception {
         when(captor.getCapturedLogs()).thenReturn(new LinkedList<LoggingEvent>());
 
-        boolean matches = hasLogMatcher.matchesSafely(captor);
+        boolean found = hasLogMatcher.matchesSafely(captor);
 
-        assertFalse(matches);
+        assertFalse(found);
     }
 
     @Test
-    public void shouldReturnFalseWhenNoneOfLogEntriesMatchesExpectations() throws Exception {
+    public void shouldReturnFalseWhenNoMatches() throws Exception {
         when(logExpectations.fulfillsExpectations(any(Log4jEntry.class))).thenReturn(false);
 
-        boolean matches = hasLogMatcher.matchesSafely(captor);
+        boolean found = hasLogMatcher.matchesSafely(captor);
 
-        assertFalse(matches);
+        assertFalse(found);
     }
 
     @Test
     public void shouldReturnTrueWhenOneLogEntryMatchesExpectations() throws Exception {
         when(logExpectations.fulfillsExpectations(any(Log4jEntry.class))).thenReturn(false, true);
 
-        boolean matches = hasLogMatcher.matchesSafely(captor);
+        boolean found = hasLogMatcher.matchesSafely(captor);
 
-        assertTrue(matches);
+        assertTrue(found);
+        verify(logExpectations, times(2)).fulfillsExpectations(any(Log4jEntry.class));
     }
 
     @Test
     public void shouldReturnTrueOnFirstMatchingLogEntry() throws Exception {
         when(logExpectations.fulfillsExpectations(any(Log4jEntry.class))).thenReturn(true, false);
 
-        boolean matches = hasLogMatcher.matchesSafely(captor);
+        boolean found = hasLogMatcher.matchesSafely(captor);
 
-        assertTrue(matches);
+        assertTrue(found);
+        verify(logExpectations, times(1)).fulfillsExpectations(any(Log4jEntry.class));
     }
 
 }

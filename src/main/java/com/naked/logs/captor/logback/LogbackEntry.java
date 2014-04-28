@@ -15,7 +15,7 @@ public class LogbackEntry implements LogEntry<Level> {
     }
 
     public String getMessage() {
-        return loggingEvent.getMessage().toString();
+        return loggingEvent.getMessage();
     }
 
     public String getLoggerName() {

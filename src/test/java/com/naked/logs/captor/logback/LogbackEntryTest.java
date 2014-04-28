@@ -1,8 +1,8 @@
 package com.naked.logs.captor.logback;
 
+import static ch.qos.logback.classic.Level.INFO;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -15,15 +15,12 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.naked.logs.captor.logback.LogbackEntry;
-
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.ThrowableProxy;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LogbackEntryTest {
-
 
     @Mock
     private ILoggingEvent loggingEvent;
@@ -36,57 +33,52 @@ public class LogbackEntryTest {
     }
 
     @Test
-    public void shouldGetMessageOfLoggingEvent() throws Exception {
-        String expectedMessage = "message";
-        when(loggingEvent.getMessage()).thenReturn(expectedMessage);
+    public void shouldGetMessage() throws Exception {
+        when(loggingEvent.getMessage()).thenReturn("message");
 
         String message = logbackEntry.getMessage();
 
-        assertThat(message, equalTo(expectedMessage));
+        assertThat(message, equalTo("message"));
     }
 
     @Test
-    public void shouldGetLoggerNameOfLoggingEvent() throws Exception {
-        String expectedLoggerName = "com.naked.logs.some.package";
-        when(loggingEvent.getLoggerName()).thenReturn(expectedLoggerName);
+    public void shouldGetLoggerName() throws Exception {
+        when(loggingEvent.getLoggerName()).thenReturn("com.naked.logs.some.package");
 
         String loggerName = logbackEntry.getLoggerName();
 
-        assertThat(loggerName, equalTo(expectedLoggerName));
+        assertThat(loggerName, equalTo("com.naked.logs.some.package"));
     }
 
     @Test
-    public void shouldGetLevelOfLoggingEvent() throws Exception {
-        Level expectedLevel = Level.INFO;
-        when(loggingEvent.getLevel()).thenReturn(expectedLevel);
+    public void shouldGetLevel() throws Exception {
+        when(loggingEvent.getLevel()).thenReturn(INFO);
 
         Level level = logbackEntry.getLevel();
 
-        assertThat(level, equalTo(expectedLevel));
+        assertThat(level, equalTo(INFO));
     }
 
     @Test
-    public void shouldGetExceptionMessageOfLoggingEvent() throws Exception {
-        String expectedExceptionMessage = "exception message";
-        when(loggingEvent.getThrowableProxy()).thenReturn(new ThrowableProxy(new Exception(expectedExceptionMessage)));
+    public void shouldGetExceptionMessage() throws Exception {
+        when(loggingEvent.getThrowableProxy()).thenReturn(new ThrowableProxy(new Exception("exception message")));
 
         String exceptionMessage = logbackEntry.getExceptionMessage();
 
-        assertThat(exceptionMessage, equalTo(expectedExceptionMessage));
+        assertThat(exceptionMessage, equalTo("exception message"));
     }
 
     @Test
-    public void shouldGetExceptionClassOfLoggingEvent() throws Exception {
-        IllegalArgumentException expectedException = new IllegalArgumentException();
-        when(loggingEvent.getThrowableProxy()).thenReturn(new ThrowableProxy(expectedException));
+    public void shouldGetExceptionClass() throws Exception {
+        when(loggingEvent.getThrowableProxy()).thenReturn(new ThrowableProxy(new IllegalArgumentException()));
 
         String exceptionClassName = logbackEntry.getExceptionClassName();
 
-        assertEquals(expectedException.getClass().getName(), exceptionClassName);
+        assertThat(exceptionClassName, equalTo(IllegalArgumentException.class.getName()));
     }
 
     @Test
-    public void shouldReturnNullExceptionMessageWhenNoThrowable() throws Exception {
+    public void shouldReturnNullExceptionMessageWhenNoThrowableProxy() throws Exception {
         when(loggingEvent.getThrowableProxy()).thenReturn(null);
 
         String exceptionMessage = logbackEntry.getExceptionMessage();
@@ -95,7 +87,7 @@ public class LogbackEntryTest {
     }
 
     @Test
-    public void shouldNullReturnExceptionClassWhenNoThrowableOfLoggingEvent() throws Exception {
+    public void shouldNullReturnExceptionClassWhenNoThrowableProxy() throws Exception {
         when(loggingEvent.getThrowableProxy()).thenReturn(null);
 
         String exceptionClassName = logbackEntry.getExceptionClassName();
@@ -104,16 +96,14 @@ public class LogbackEntryTest {
     }
 
     @Test
-    public void shouldGetMdcOfLoggingEvent() throws Exception {
-        String mdcKey = "mdc key";
-        String expectedMdcValue = "mdc value";
+    public void shouldGetMdc() throws Exception {
         Map<String, String> mdcMap = new HashMap<String, String>();
-        mdcMap.put(mdcKey, expectedMdcValue);
+        mdcMap.put("mdc key", "mdc value");
         when(loggingEvent.getMDCPropertyMap()).thenReturn(mdcMap);
 
-        String mdcValue = logbackEntry.getMdcValue(mdcKey );
+        String mdcValue = logbackEntry.getMdcValue("mdc key");
 
-        assertThat(mdcValue, equalTo(expectedMdcValue));
+        assertThat(mdcValue, equalTo("mdc value"));
     }
 
 }

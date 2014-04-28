@@ -9,16 +9,15 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 
 import com.naked.logs.captor.LogCapture;
-import com.naked.logs.captor.logback.LogbackCapturingAppender;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LogbackCapturingAppenderTest {
@@ -26,17 +25,21 @@ public class LogbackCapturingAppenderTest {
     @Mock
     private LogCapture<ILoggingEvent> logCapture;
     @Mock
-    private ILoggingEvent event;
+    private ILoggingEvent loggingEvent;
 
-    @InjectMocks
     private LogbackCapturingAppender capturingAppender;
+
+    @Before
+    public void before() throws Exception {
+        capturingAppender = new LogbackCapturingAppender(logCapture);
+    }
 
     @Test
     public void shouldCaptureLoggingEvent() throws Exception {
 
-        capturingAppender.append(event);
+        capturingAppender.append(loggingEvent);
 
-        verify(logCapture).capture(event);
+        verify(logCapture).capture(loggingEvent);
         verifyNoMoreInteractions(logCapture);
     }
 

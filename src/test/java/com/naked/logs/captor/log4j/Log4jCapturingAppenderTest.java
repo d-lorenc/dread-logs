@@ -18,12 +18,10 @@ import org.apache.log4j.spi.LoggingEvent;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.naked.logs.captor.LogCapture;
-import com.naked.logs.captor.log4j.Log4jCapturingAppender;
 
 @RunWith(MockitoJUnitRunner.class)
 public class Log4jCapturingAppenderTest {
@@ -31,24 +29,23 @@ public class Log4jCapturingAppenderTest {
     @Mock
     private LogCapture<LoggingEvent> logCapture;
     @Mock
-    private LoggingEvent event;
+    private LoggingEvent loggingEvent;
     @Mock
     private Layout layout;
 
-    @InjectMocks
     private Log4jCapturingAppender capturingAppender;
 
     @Before
     public void before() throws Exception {
-        when(layout.format(event)).thenReturn("expected message");
+        capturingAppender = new Log4jCapturingAppender(layout, logCapture);
     }
 
     @Test
     public void shouldCaptureLoggingEvent() throws Exception {
 
-        capturingAppender.append(event);
+        capturingAppender.append(loggingEvent);
 
-        verify(logCapture).capture(event);
+        verify(logCapture).capture(loggingEvent);
         verifyNoMoreInteractions(logCapture);
     }
 
@@ -76,9 +73,10 @@ public class Log4jCapturingAppenderTest {
 
     @Test
     public void shouldStringifyAppender() throws Exception {
-        when(logCapture.getCapturedLogs()).thenReturn(asList(event));
+        when(layout.format(loggingEvent)).thenReturn("expected message");
+        when(logCapture.getCapturedLogs()).thenReturn(asList(loggingEvent));
 
-        capturingAppender.append(event);
+        capturingAppender.append(loggingEvent);
         String stringLog = capturingAppender.toString();
 
         assertThat(stringLog, equalTo("expected message"));
