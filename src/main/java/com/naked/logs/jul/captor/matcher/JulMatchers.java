@@ -35,4 +35,12 @@ public class JulMatchers {
         return (JulNoLogMatcher) noLog(unwantedMessage).onLevel(level);
     }
 
+    public static JulNoLogMatcher noLog(Matcher<String> messageMatcher) {
+        return (JulNoLogMatcher) new JulNoLogMatcher(new LogExpectations<Level>()).withMessage(messageMatcher);
+    }
+
+    public static JulNoLogMatcher noLog(Level level, Matcher<String> messageMatcher) {
+        return (JulNoLogMatcher) noLog(messageMatcher).onLevel(level);
+    }
+
 }

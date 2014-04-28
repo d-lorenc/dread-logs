@@ -36,4 +36,12 @@ public class Log4jMatchers {
         return (Log4jNoLogMatcher) noLog(unwantedMessage).onLevel(level);
     }
 
+    public static Log4jNoLogMatcher noLog(Matcher<String> messageMatcher) {
+        return (Log4jNoLogMatcher) new Log4jNoLogMatcher(new LogExpectations<Level>()).withMessage(messageMatcher);
+    }
+
+    public static Log4jNoLogMatcher noLog(Level level, Matcher<String> messageMatcher) {
+        return (Log4jNoLogMatcher) noLog(messageMatcher).onLevel(level);
+    }
+
 }

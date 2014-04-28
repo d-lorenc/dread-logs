@@ -38,15 +38,29 @@ public class JulMatchersTest {
     }
 
     @Test
-    public void shouldCreateNoLogMatcher() throws Exception {
+    public void shouldCreateNoLogMatcherForMessage() throws Exception {
         JulNoLogMatcher noLog = JulMatchers.noLog("unwanted message");
 
         assertNotNull(noLog);
     }
 
     @Test
-    public void shouldCreateNoLogMatcherWithLevel() throws Exception {
+    public void shouldCreateNoLogMatcherForLevelAndMessage() throws Exception {
         JulNoLogMatcher noLog = JulMatchers.noLog(FINE, "unwanted message");
+
+        assertNotNull(noLog);
+    }
+
+    @Test
+    public void shouldCreateNoLogMatcherForStringMatcher() throws Exception {
+        JulNoLogMatcher noLog = JulMatchers.noLog(containsString("message"));
+
+        assertNotNull(noLog);
+    }
+
+    @Test
+    public void shouldCreateNoLogMatcherForLevelAndStringMatcher() throws Exception {
+        JulNoLogMatcher noLog = JulMatchers.noLog(FINE, containsString("message"));
 
         assertNotNull(noLog);
     }

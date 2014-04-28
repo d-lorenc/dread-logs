@@ -37,4 +37,12 @@ public class LogbackMatchers {
         return (LogbackNoLogMatcher) noLog(unwantedMessage).onLevel(level);
     }
 
+    public static LogbackNoLogMatcher noLog(Matcher<String> messageMatcher) {
+        return (LogbackNoLogMatcher) new LogbackNoLogMatcher(new LogExpectations<Level>()).withMessage(messageMatcher);
+    }
+
+    public static LogbackNoLogMatcher noLog(Level level, Matcher<String> messageMatcher) {
+        return (LogbackNoLogMatcher) noLog(messageMatcher).onLevel(level);
+    }
+
 }

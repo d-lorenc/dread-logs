@@ -2,6 +2,7 @@ package com.naked.logs.log4j.captor.matcher;
 
 import static org.apache.log4j.Level.DEBUG;
 import static org.apache.log4j.Level.INFO;
+import static org.apache.log4j.Level.TRACE;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertNotNull;
 
@@ -50,5 +51,20 @@ public class Log4jMatchersTest {
 
         assertNotNull(noLog);
     }
+
+    @Test
+    public void shouldCreateNoLogMatcherForStringMatcher() throws Exception {
+        Log4jNoLogMatcher noLog = Log4jMatchers.noLog(containsString("message"));
+
+        assertNotNull(noLog);
+    }
+
+    @Test
+    public void shouldCreateNoLogMatcherForLevelAndStringMatcher() throws Exception {
+        Log4jNoLogMatcher noLog = Log4jMatchers.noLog(TRACE, containsString("message"));
+
+        assertNotNull(noLog);
+    }
+
 
 }

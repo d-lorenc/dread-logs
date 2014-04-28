@@ -2,6 +2,7 @@ package com.naked.logs.logback.captor.matcher;
 
 import static ch.qos.logback.classic.Level.DEBUG;
 import static ch.qos.logback.classic.Level.INFO;
+import static ch.qos.logback.classic.Level.TRACE;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertNotNull;
 
@@ -50,5 +51,20 @@ public class LogbackMatchersTest {
 
         assertNotNull(noLog);
     }
+
+    @Test
+    public void shouldCreateNoLogMatcherForStringMatcher() throws Exception {
+        LogbackNoLogMatcher noLog = LogbackMatchers.noLog(containsString("message"));
+
+        assertNotNull(noLog);
+    }
+
+    @Test
+    public void shouldCreateNoLogMatcherForLevelAndStringMatcher() throws Exception {
+        LogbackNoLogMatcher noLog = LogbackMatchers.noLog(TRACE, containsString("message"));
+
+        assertNotNull(noLog);
+    }
+
 
 }
