@@ -11,42 +11,42 @@ import org.junit.Test;
 public class LogbackMatchersTest {
 
     @Test
-    public void shouldCreateHasLogMatcher() throws Exception {
+    public void shouldCreateHasLogMatcherForMessage() throws Exception {
         LogbackHasLogMatcher hasLog = LogbackMatchers.hasLog("expected message");
 
         assertNotNull(hasLog);
     }
 
     @Test
-    public void shouldCreateHasLogMatcherWithLevel() throws Exception {
+    public void shouldCreateHasLogMatcherForLevelAndMessage() throws Exception {
         LogbackHasLogMatcher hasLog = LogbackMatchers.hasLog(INFO, "expected message");
 
         assertNotNull(hasLog);
     }
 
     @Test
-    public void shouldCreateHasLogMatcherWithStringMatcher() throws Exception {
+    public void shouldCreateHasLogMatcherForStringMatcher() throws Exception {
         LogbackHasLogMatcher hasLog = LogbackMatchers.hasLog(containsString("message"));
 
         assertNotNull(hasLog);
     }
 
     @Test
-    public void shouldCreateHasLogMatcherWithLevelANdStringMatcher() throws Exception {
+    public void shouldCreateHasLogMatcherForLevelAndStringMatcher() throws Exception {
         LogbackHasLogMatcher hasLog = LogbackMatchers.hasLog(INFO, containsString("message"));
 
         assertNotNull(hasLog);
     }
 
     @Test
-    public void shouldCreateNoLogMatcher() throws Exception {
+    public void shouldCreateNoLogMatcherForMessage() throws Exception {
         LogbackNoLogMatcher noLog = LogbackMatchers.noLog("unwanted message");
 
         assertNotNull(noLog);
     }
 
     @Test
-    public void shouldCreateNoLogMatcherWithLevel() throws Exception {
+    public void shouldCreateNoLogMatcherForLevelAndMessage() throws Exception {
         LogbackNoLogMatcher noLog = LogbackMatchers.noLog(DEBUG, "unwanted message");
 
         assertNotNull(noLog);
@@ -65,6 +65,5 @@ public class LogbackMatchersTest {
 
         assertNotNull(noLog);
     }
-
 
 }

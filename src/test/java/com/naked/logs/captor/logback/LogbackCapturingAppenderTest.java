@@ -2,8 +2,8 @@ package com.naked.logs.captor.logback;
 
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
@@ -39,8 +39,7 @@ public class LogbackCapturingAppenderTest {
 
         capturingAppender.append(loggingEvent);
 
-        verify(logCapture).capture(loggingEvent);
-        verifyNoMoreInteractions(logCapture);
+        verify(logCapture, only()).capture(loggingEvent);
     }
 
     @Test
@@ -48,8 +47,7 @@ public class LogbackCapturingAppenderTest {
 
         capturingAppender.reset();
 
-        verify(logCapture).reset();
-        verifyNoMoreInteractions(logCapture);
+        verify(logCapture, only()).reset();
     }
 
     @Test
@@ -61,8 +59,7 @@ public class LogbackCapturingAppenderTest {
 
         assertThat(capturedLogs, sameInstance(expectedList));
 
-        verify(logCapture).getCapturedLogs();
-        verifyNoMoreInteractions(logCapture);
+        verify(logCapture, only()).getCapturedLogs();
     }
 
 }

@@ -11,42 +11,42 @@ import org.junit.Test;
 public class Log4jMatchersTest {
 
     @Test
-    public void shouldCreateHasLogMatcher() throws Exception {
+    public void shouldCreateHasLogMatcherForMessage() throws Exception {
         Log4jHasLogMatcher hasLog = Log4jMatchers.hasLog("expected message");
 
         assertNotNull(hasLog);
     }
 
     @Test
-    public void shouldCreateHasLogMatcherWithLevel() throws Exception {
+    public void shouldCreateHasLogMatcherForLevelAndMessage() throws Exception {
         Log4jHasLogMatcher hasLog = Log4jMatchers.hasLog(INFO, "expected message");
 
         assertNotNull(hasLog);
     }
 
     @Test
-    public void shouldCreateHasLogMatcherWithStringMatcher() throws Exception {
+    public void shouldCreateHasLogMatcherForStringMatcher() throws Exception {
         Log4jHasLogMatcher hasLog = Log4jMatchers.hasLog(containsString("message"));
 
         assertNotNull(hasLog);
     }
 
     @Test
-    public void shouldCreateHasLogMatcherWithLevelANdStringMatcher() throws Exception {
+    public void shouldCreateHasLogMatcherForLevelAndStringMatcher() throws Exception {
         Log4jHasLogMatcher hasLog = Log4jMatchers.hasLog(INFO, containsString("message"));
 
         assertNotNull(hasLog);
     }
 
     @Test
-    public void shouldCreateNoLogMatcher() throws Exception {
+    public void shouldCreateNoLogMatcherForMessage() throws Exception {
         Log4jNoLogMatcher noLog = Log4jMatchers.noLog("unwanted message");
 
         assertNotNull(noLog);
     }
 
     @Test
-    public void shouldCreateNoLogMatcherWithLevel() throws Exception {
+    public void shouldCreateNoLogMatcherForLevelAndMessage() throws Exception {
         Log4jNoLogMatcher noLog = Log4jMatchers.noLog(DEBUG, "unwanted message");
 
         assertNotNull(noLog);

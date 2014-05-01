@@ -3,6 +3,7 @@ package com.naked.logs.captor.logback;
 import static ch.qos.logback.classic.Level.INFO;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -51,8 +53,10 @@ public class LogbackCaptorTest {
     }
 
     @Test
-    public void shouldAttachAppenderToLoggerOnConstruction() throws Exception {
-        verify(logger).addAppender(appender);
+    public void shouldAttachAppenderToLoggerAndStartItOnConstruction() throws Exception {
+        InOrder inOrder = inOrder(logger, appender);
+        inOrder.verify(logger).addAppender(appender);
+        inOrder.verify(appender).start();;
     }
 
     @Test

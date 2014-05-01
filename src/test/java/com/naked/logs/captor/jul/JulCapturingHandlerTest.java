@@ -2,8 +2,8 @@ package com.naked.logs.captor.jul;
 
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
@@ -40,8 +40,7 @@ public class JulCapturingHandlerTest {
 
         capturingHandler.publish(logRecord);
 
-        verify(logCapture).capture(logRecord);
-        verifyNoMoreInteractions(logCapture);
+        verify(logCapture, only()).capture(logRecord);
     }
 
     @Test
@@ -49,8 +48,7 @@ public class JulCapturingHandlerTest {
 
         capturingHandler.reset();
 
-        verify(logCapture).reset();
-        verifyNoMoreInteractions(logCapture);
+        verify(logCapture, only()).reset();
     }
 
     @Test
@@ -62,8 +60,7 @@ public class JulCapturingHandlerTest {
 
         assertThat(capturedLogs, sameInstance(expectedList));
 
-        verify(logCapture).getCapturedLogs();
-        verifyNoMoreInteractions(logCapture);
+        verify(logCapture, only()).getCapturedLogs();
     }
 
     @Test

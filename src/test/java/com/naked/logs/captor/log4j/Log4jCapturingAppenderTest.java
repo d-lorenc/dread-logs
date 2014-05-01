@@ -5,8 +5,8 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.sameInstance;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.only;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
 
@@ -45,8 +45,7 @@ public class Log4jCapturingAppenderTest {
 
         capturingAppender.append(loggingEvent);
 
-        verify(logCapture).capture(loggingEvent);
-        verifyNoMoreInteractions(logCapture);
+        verify(logCapture, only()).capture(loggingEvent);
     }
 
     @Test
@@ -54,8 +53,7 @@ public class Log4jCapturingAppenderTest {
 
         capturingAppender.reset();
 
-        verify(logCapture).reset();
-        verifyNoMoreInteractions(logCapture);
+        verify(logCapture, only()).reset();
     }
 
     @Test
@@ -67,8 +65,7 @@ public class Log4jCapturingAppenderTest {
 
         assertThat(capturedLogs, sameInstance(expectedList));
 
-        verify(logCapture).getCapturedLogs();
-        verifyNoMoreInteractions(logCapture);
+        verify(logCapture, only()).getCapturedLogs();
     }
 
     @Test

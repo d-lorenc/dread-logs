@@ -15,8 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.naked.logs.captor.LogEntry;
 import com.naked.logs.captor.LogExpectations;
-import com.naked.logs.captor.jul.JulHasLogMatcher;
-
 
 @RunWith(MockitoJUnitRunner.class)
 public class JulHasLogMatcherTest {
