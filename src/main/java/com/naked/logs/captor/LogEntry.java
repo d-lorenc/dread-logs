@@ -8,5 +8,6 @@ public interface LogEntry<LEVEL> {
     String getExceptionMessage();
     String getExceptionClassName();
     String getMdcValue(String mdcKey);
+    boolean isMdcSupported();
 
 }

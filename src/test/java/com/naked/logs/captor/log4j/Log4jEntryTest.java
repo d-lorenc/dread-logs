@@ -109,4 +109,12 @@ public class Log4jEntryTest {
         assertThat(mdcValue, nullValue());
     }
 
+    @Test
+    public void shouldReturnTrueAsLog4jSupportsMdc() throws Exception {
+
+        boolean mdcSupported = log4jEntry.isMdcSupported();
+
+        assertThat(mdcSupported, equalTo(true));
+    }
+
 }

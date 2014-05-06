@@ -59,4 +59,8 @@ public class Log4jEntry implements LogEntry<Level> {
         return mdcValue.toString();
     }
 
+    public boolean isMdcSupported() {
+        return true;
+    }
+
 }

@@ -51,6 +51,10 @@ public class LogExpectations<LEVEL> {
             return true;
         }
 
+        if (!logEntry.isMdcSupported()) {
+            throw new UnsupportedOperationException("MDC expectations must not be set for the logger implementation which does not support MDC.");
+        }
+
         for (Entry<String, String> expectedMdc : expectedMdcs.entrySet()) {
             Object mdcValue = logEntry.getMdcValue(expectedMdc.getKey());
             if ((expectedMdc.getValue() != mdcValue) || (mdcValue != null && !mdcValue.equals(expectedMdc.getValue()))) {
@@ -95,8 +99,8 @@ public class LogExpectations<LEVEL> {
     @Override
     public String toString() {
         return String.format("Level:[%s] LoggerName:[%s] MDC:[%s] ExceptionClass:[%s] ExceptionMessage:[%s] Message:[%s]",
-                expectedLevel, expectedLoggerName, expectedMdcs, expectedExceptionClass.getName(), expectedExceptionMessageMatcher,
-                expectedMessageMatcher != null ? expectedMessageMatcher : "");
+                expectedLevel, expectedLoggerName, expectedMdcs, expectedExceptionClass != null ? expectedExceptionClass.getName() : "",
+                expectedExceptionMessageMatcher, expectedMessageMatcher != null ? expectedMessageMatcher : "");
     }
 
 }

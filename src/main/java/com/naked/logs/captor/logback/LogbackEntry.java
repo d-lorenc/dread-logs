@@ -46,4 +46,8 @@ public class LogbackEntry implements LogEntry<Level> {
         return loggingEvent.getMDCPropertyMap().get(mdcKey);
     }
 
+    public boolean isMdcSupported() {
+        return true;
+    }
+
 }

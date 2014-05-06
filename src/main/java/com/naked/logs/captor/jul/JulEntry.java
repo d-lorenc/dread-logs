@@ -46,4 +46,8 @@ public class JulEntry implements LogEntry<Level>{
         return null;
     }
 
+    public boolean isMdcSupported() {
+        return false;
+    }
+
 }

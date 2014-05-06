@@ -106,4 +106,12 @@ public class LogbackEntryTest {
         assertThat(mdcValue, equalTo("mdc value"));
     }
 
+    @Test
+    public void shouldReturnTrueAsLogbackSupportsMdc() throws Exception {
+
+        boolean mdcSupported = logbackEntry.isMdcSupported();
+
+        assertThat(mdcSupported, equalTo(true));
+    }
+
 }

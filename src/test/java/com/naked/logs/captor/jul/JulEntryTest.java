@@ -98,4 +98,12 @@ public class JulEntryTest {
         assertThat(mdcValue, nullValue());
     }
 
+    @Test
+    public void shouldReturnFalseAsJulDoesNotSupportMdc() throws Exception {
+
+        boolean mdcSupported = julEntry.isMdcSupported();
+
+        assertThat(mdcSupported, equalTo(false));
+    }
+
 }

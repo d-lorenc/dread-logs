@@ -11,7 +11,9 @@ import static org.mockito.Mockito.when;
 
 import org.apache.log4j.Level;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -19,10 +21,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class LogExpectationsTest {
 
-    private LogExpectations<Level> logExpectations;
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Mock
     private LogEntry<Level> logEntry;
+
+    private LogExpectations<Level> logExpectations;
 
     @Before
     public void before() throws Exception {
@@ -34,6 +39,7 @@ public class LogExpectationsTest {
         when(logEntry.getExceptionMessage()).thenReturn("exception message");
         when(logEntry.getExceptionClassName()).thenReturn(NullPointerException.class.getName());
         when(logEntry.getMdcValue("a key")).thenReturn("a value");
+        when(logEntry.isMdcSupported()).thenReturn(true);
 
         logExpectations.setExpectedMessage("a message");
         logExpectations.setExpectedLevel(INFO);
@@ -183,6 +189,26 @@ public class LogExpectationsTest {
         when(logEntry.getMdcValue("another key")).thenReturn("another value");
         logExpectations.addExpectedMdc("a key", "a value");
         logExpectations.addExpectedMdc("another key", "another value");
+
+        boolean matches = logExpectations.fulfillsExpectations(logEntry);
+
+        assertTrue(matches);
+    }
+
+    @Test
+    public void shouldThrowUnsupportedOperationExceptionWhenMdcSetButNotSupported() throws Exception {
+        when(logEntry.isMdcSupported()).thenReturn(false);
+
+        expectedException.expect(UnsupportedOperationException.class);
+        expectedException.expectMessage("MDC expectations must not be set for the logger implementation which does not support MDC.");
+
+        logExpectations.fulfillsExpectations(logEntry);
+    }
+
+    @Test
+    public void shouldReturnTrueWhenMdcNotSupportedAndNotSet() throws Exception {
+        when(logEntry.isMdcSupported()).thenReturn(false);
+        LogExpectations<Level> logExpectations = new LogExpectations<Level>();
 
         boolean matches = logExpectations.fulfillsExpectations(logEntry);
 
