@@ -217,9 +217,141 @@ public class LogExpectationsTest {
 
     @Test
     public void shouldStringify() throws Exception {
-
         assertThat(logExpectations.toString(), equalTo("Level:[INFO] LoggerName:[com.naked.logs.a.package] MDC:[{a key=a value}] "
                 + "ExceptionClass:[java.lang.NullPointerException] ExceptionMessage:[\"exception message\"] Message:[\"a message\"]"));
+    }
+
+    @Test
+    public void shouldStringifyToEmptyStringWhenAllNullValues() throws Exception {
+        logExpectations = new LogExpectations<Level>();
+
+        String string = logExpectations.toString();
+
+        assertThat(string, equalTo(""));
+    }
+
+    @Test
+    public void shouldStringifyOnlySetValues() throws Exception {
+        logExpectations = new LogExpectations<Level>();
+        logExpectations.setExpectedLevel(INFO);
+        logExpectations.setExpectedLoggerName("com.naked.logs.a.package");
+        logExpectations.setExpectedMessage("a message");
+
+        String string = logExpectations.toString();
+
+        assertThat(string, equalTo("Level:[INFO] LoggerName:[com.naked.logs.a.package] Message:[\"a message\"]"));
+    }
+
+    @Test
+    public void shouldStringifyWithMatchers() throws Exception {
+        logExpectations = new LogExpectations<Level>();
+        logExpectations.setExpectedMessage(containsString("a message"));
+
+        String string = logExpectations.toString();
+
+        assertThat(string, equalTo("Message:[a string containing \"a message\"]"));
+    }
+
+    @Test
+    public void shouldReturnFalseIfNotExpectingSpecificLevel() throws Exception {
+        logExpectations = new LogExpectations<Level>();
+
+        boolean levelSet = logExpectations.isLevelSet();
+
+        assertFalse(levelSet);
+    }
+
+    @Test
+    public void shouldReturnTrueIfExpectingSpecificLevel() throws Exception {
+
+        boolean levelSet = logExpectations.isLevelSet();
+
+        assertTrue(levelSet);
+    }
+
+    @Test
+    public void shouldReturnFalseIfNotExpectingSpecificMessage() throws Exception {
+        logExpectations = new LogExpectations<Level>();
+
+        boolean messageSet = logExpectations.isMessageSet();
+
+        assertFalse(messageSet);
+    }
+
+    @Test
+    public void shouldReturnTrueIfExpectingSpecificMessage() throws Exception {
+
+        boolean messageSet = logExpectations.isMessageSet();
+
+        assertTrue(messageSet);
+    }
+
+    @Test
+    public void shouldReturnFalseIfNotExpectingSpecificLogerName() throws Exception {
+        logExpectations = new LogExpectations<Level>();
+
+        boolean logerNameSet = logExpectations.isLogerNameSet();
+
+        assertFalse(logerNameSet);
+    }
+
+    @Test
+    public void shouldReturnTrueIfExpectingSpecificLoggerName() throws Exception {
+
+        boolean logerNameSet = logExpectations.isLogerNameSet();
+
+        assertTrue(logerNameSet);
+    }
+
+    @Test
+    public void shouldReturnFalseIfNotExpectingSpecificExceptionMessage() throws Exception {
+        logExpectations = new LogExpectations<Level>();
+
+        boolean exceptionMessageSet = logExpectations.isExceptionMessageSet();
+
+        assertFalse(exceptionMessageSet);
+    }
+
+    @Test
+    public void shouldReturnTrueIfExpectingSpecificExceptionMessage() throws Exception {
+
+        boolean exceptionMessageSet = logExpectations.isExceptionMessageSet();
+
+        assertTrue(exceptionMessageSet);
+    }
+
+    @Test
+    public void shouldReturnFalseIfNotExpectingSpecificExceptionClass() throws Exception {
+        logExpectations = new LogExpectations<Level>();
+
+        boolean exceptionClassSet = logExpectations.isExceptionClassSet();
+
+        assertFalse(exceptionClassSet);
+    }
+
+    @Test
+    public void shouldReturnTrueIfExpectingSpecificExceptionClass() throws Exception {
+
+        boolean exceptionClassSet = logExpectations.isExceptionClassSet();
+
+        assertTrue(exceptionClassSet);
+    }
+
+    @Test
+    public void shouldReturnFalseIfNotExpectingSpecificMdc() throws Exception {
+        logExpectations = new LogExpectations<Level>();
+
+        boolean mdcSet = logExpectations.isMdcSet();
+
+        assertFalse(mdcSet);
+    }
+
+    @Test
+    public void shouldReturnTrueIfExpectingSpecificMdc() throws Exception {
+
+        boolean mdcSet = logExpectations.isMdcSet();
+
+        assertTrue(mdcSet);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.naked.logs.captor;
 
+import static java.util.Arrays.asList;
 import static org.apache.log4j.Level.TRACE;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.sameInstance;
@@ -34,6 +35,8 @@ public class LogMatcherTest {
     private LoggingEvent log;
     @Mock
     private LogEntry<Level> logEntry;
+    @Mock
+    private Log4jCaptor captor;
     @Captor
     private ArgumentCaptor<LogEntry<Level>> entryCaptor;
 
@@ -142,7 +145,27 @@ public class LogMatcherTest {
 
         logMatcher.describeTo(description);
 
-        verify(description).appendValue("log expectations");
+        verify(description).appendText("\nlog expectations");
+    }
+
+    @Test
+    public void shouldDescribeMismatchForEmptyLogs() throws Exception {
+
+        logMatcher.describeMismatchSafely(captor, description);
+
+        verify(description).appendText("NO captured logs");
+    }
+
+    @Test
+    public void shouldDescribeMismatch() throws Exception {
+        when(captor.getCapturedLogs()).thenReturn(asList(log, log));
+        when(logEntry.toStringOnlyExpected(logExpectations)).thenReturn("logLineOne", "logLineTwo");
+
+        logMatcher.describeMismatchSafely(captor, description);
+
+        verify(description).appendText("captured logs\n"
+                + "logLineOne\n"
+                + "logLineTwo");
     }
 
     @Test

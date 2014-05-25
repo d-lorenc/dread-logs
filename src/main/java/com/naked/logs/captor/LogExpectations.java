@@ -98,9 +98,38 @@ public class LogExpectations<LEVEL> {
 
     @Override
     public String toString() {
-        return String.format("Level:[%s] LoggerName:[%s] MDC:[%s] ExceptionClass:[%s] ExceptionMessage:[%s] Message:[%s]",
-                expectedLevel, expectedLoggerName, expectedMdcs, expectedExceptionClass != null ? expectedExceptionClass.getName() : "",
-                expectedExceptionMessageMatcher, expectedMessageMatcher != null ? expectedMessageMatcher : "");
+        return new OnlyExpectedToStringBuilder()
+            .appendIf(isLevelSet(), "Level", expectedLevel)
+            .appendIf(isLogerNameSet(), "LoggerName", expectedLoggerName)
+            .appendIf(isMdcSet(), "MDC", expectedMdcs)
+            .appendIf(isExceptionClassSet(), "ExceptionClass", expectedExceptionClass)
+            .appendIf(isExceptionMessageSet(), "ExceptionMessage", expectedExceptionMessageMatcher)
+            .appendIf(isMessageSet(), "Message", expectedMessageMatcher)
+            .toString();
+    }
+
+    public boolean isLevelSet() {
+        return expectedLevel != null;
+    }
+
+    public boolean isMessageSet() {
+        return expectedMessageMatcher != null;
+    }
+
+    public boolean isLogerNameSet() {
+        return expectedLoggerName != null;
+    }
+
+    public boolean isExceptionMessageSet() {
+        return expectedExceptionMessageMatcher != null;
+    }
+
+    public boolean isExceptionClassSet() {
+        return expectedExceptionClass != null;
+    }
+
+    public boolean isMdcSet() {
+        return !expectedMdcs.isEmpty();
     }
 
 }

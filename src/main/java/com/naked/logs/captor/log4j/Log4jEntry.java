@@ -1,12 +1,14 @@
 package com.naked.logs.captor.log4j;
 
+import java.util.Map;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.ThrowableInformation;
 
 import com.naked.logs.captor.LogEntry;
 
-public class Log4jEntry implements LogEntry<Level> {
+public class Log4jEntry extends LogEntry<Level> {
 
     private final LoggingEvent loggingEvent;
 
@@ -14,18 +16,22 @@ public class Log4jEntry implements LogEntry<Level> {
         this.loggingEvent = loggingEvent;
     }
 
+    @Override
     public String getMessage() {
         return loggingEvent.getMessage().toString();
     }
 
+    @Override
     public String getLoggerName() {
         return loggingEvent.getLoggerName();
     }
 
+    @Override
     public Level getLevel() {
         return loggingEvent.getLevel();
     }
 
+    @Override
     public String getExceptionMessage() {
         Throwable throwable = getThrowable();
         if (throwable == null) {
@@ -34,6 +40,7 @@ public class Log4jEntry implements LogEntry<Level> {
         return throwable.getMessage();
     }
 
+    @Override
     public String getExceptionClassName() {
         Throwable throwable = getThrowable();
         if (throwable == null) {
@@ -51,6 +58,13 @@ public class Log4jEntry implements LogEntry<Level> {
         return throwable;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public Map<String, Object> getMdcMap() {
+        return loggingEvent.getProperties();
+    }
+    
+    @Override
     public String getMdcValue(String mdcKey) {
         Object mdcValue = loggingEvent.getMDC(mdcKey);
         if (mdcValue == null) {
@@ -58,7 +72,8 @@ public class Log4jEntry implements LogEntry<Level> {
         }
         return mdcValue.toString();
     }
-
+    
+    @Override
     public boolean isMdcSupported() {
         return true;
     }

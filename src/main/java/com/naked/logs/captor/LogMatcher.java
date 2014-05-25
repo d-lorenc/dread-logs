@@ -1,5 +1,9 @@
 package com.naked.logs.captor;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -55,18 +59,52 @@ public abstract class LogMatcher<CAPTOR extends Captor<LOG>, LOG, LEVEL> extends
         return withExceptionClass(expectedExceptionClass).withExceptionMessage(expectedExceptionMessageMatcher);
     }
 
-
     public LogMatcher<CAPTOR, LOG, LEVEL> withMdc(String expectedMdcKey, String expectedMdcValue) {
         logExpectations.addExpectedMdc(expectedMdcKey, expectedMdcValue);
         return this;
     }
 
-    public void describeTo(Description description) {
-        description.appendValue(logExpectations.toString());
-    }
-
     protected boolean fulfillsExpectations(LOG log) {
         return logExpectations.fulfillsExpectations(createLogEntry(log));
+    }
+
+    public void describeTo(Description description) {
+        description.appendText("\n" + logExpectations.toString());
+    }
+
+    @Override
+    protected void describeMismatchSafely(CAPTOR captor, Description mismatchDescription) {
+        List<LOG> capturedLogs = captor.getCapturedLogs();
+
+        if (capturedLogs.isEmpty()) {
+            mismatchDescription.appendText("NO captured logs");
+            return;
+        }
+
+        mismatchDescription.appendText("captured logs\n" + stringifyCapturedLogs(capturedLogs));
+    }
+
+    private String stringifyCapturedLogs(List<LOG> capturedLogs) {
+        List<String> capturedLogEntryInfos = new LinkedList<String>();
+        for (LOG log : capturedLogs) {
+            capturedLogEntryInfos.add(createLogEntry(log).toStringOnlyExpected(logExpectations));
+        }
+        return join(capturedLogEntryInfos);
+    }
+
+    private String join(List<String> values) {
+        StringBuilder builder = new StringBuilder();
+
+        for (Iterator<String> iterator = values.iterator();;) {
+            builder.append(iterator.next());
+            if (iterator.hasNext()) {
+                builder.append("\n");
+            } else {
+                break;
+            }
+        }
+
+        return builder.toString();
     }
 
     protected abstract LogEntry<LEVEL> createLogEntry(LOG log);
