@@ -5,7 +5,7 @@ sourceCompatibility = 1.5
 version = '1.0'
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Naked Logs', 'Implementation-Version': version
+        attributes 'Implementation-Title': 'Dreadlogs', 'Implementation-Version': version
     }
 }
 
