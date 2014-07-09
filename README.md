@@ -3,7 +3,7 @@ dread-logs
 
 [![Build Status](https://travis-ci.org/d-lorenc/dread-logs.svg?branch=master)](https://travis-ci.org/d-lorenc/dread-logs) [![Coverage Status](https://coveralls.io/repos/d-lorenc/dread-logs/badge.png?branch=master)](https://coveralls.io/r/d-lorenc/dread-logs?branch=master)
 
-A Java library for testing logs. It supports most commonly used logging libraries, namely [log4j](http://logging.apache.org/log4j), [Logback](http://logback.qos.ch/) and Java logging framework (JUL = java.util.logging). It's aimed for unit testing (TDD) but can also be used in integration and functional tests as long as they run in the same JVM as your system under test.
+A Java library for testing logs. It supports most commonly used logging libraries, namely [log4j](http://logging.apache.org/log4j), [Logback](http://logback.qos.ch/) and Java logging framework (JUL = java.util.logging). It is aimed for unit testing (TDD) but can also be used in integration and functional tests as long as they run in the same JVM as your system under test.
 
 example
 ------
@@ -82,14 +82,14 @@ It uses log appenders which attach to the logging library and capture and store 
 
 why "capturing appenders"
 ------------------------
-There is definitely more than one way to test the logs. In a unit test a logger could be mocked. That way any interactions with the logger API can be verified. The other extreme would be writing logs to a file (or a stream) and test the actual file/stream content, including line formatting etc. That might be not ideal for unit testing (involves file system), but might be preferable for functional tests.
+There is definitely more than one way to test the logs. In a unit test a logger can be mocked. That way any interactions with the logger API can be verified. The other extreme would be writing logs to a file (or a stream) and test the actual file/stream content, including line formatting etc. That is not ideal for unit testing (involves file system), but may be preferable for functional tests.
 The "capturing appender" is a solution in the middle, which is fast and isolated enough for unit testing. At the same time it can be applied in other types of tests, as long as they run in the same JVM as the systems which writes the logs. A good example would be a lightweight independent system component which can run on its own (e.g. inside embedded container). 
 Such a component can be started from a test, which means that everything can run within the same JVM.
 
 motivation
 ----------
-I have been working on many agile projects, where we would follow TDD and/or BDD principles, and quite often write some tests which were checking logs too. I haven't came across any library which would help in that. I would typically create some sort of in memory appender with a bunch of classes which would make log assertions neat and simple. And I would  repeat the same process for many projects (different logging framework, employer etc). So here is my attempt to create a library, which covers the most common Java log frameworks, and simplifies verification of logs in tests. As this makes testing logs quite trivial, you may even stop asking yourself whether you should be testing logs or not. So happy test driven logging :) 
+I have been working on many agile projects, where we would follow TDD and/or BDD principles, and quite often write some tests to check logs too. Unfortunately I haven't come across any library which would help in that. I would usually create some sort of in-memory-appender with a bunch of classes to make log assertions neat and simple. And I would repeat the same process for many projects (different logging framework, employer). So here is my attempt to create a library, which covers the most common Java log frameworks, and simplifies verification of logs in tests. As this makes testing logs quite trivial, you may even stop asking yourself whether you should be testing logs or not.
 
 java version
 ------------
-1.5 and higher
+1.5 or later
