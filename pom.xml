@@ -10,7 +10,7 @@
 	<name>dreadlogs</name>
 	<description>
 		A Java library for testing logs. It supports most commonly used logging libraries, namely log4j, Logback and Java logging framework (JUL = java.util.logging).
-		It's aimed for unit testing (TDD) but could also be used in integration and functional tests as long as they run in the same JVM as the system under test.
+		It's aimed for unit testing (TDD) but can also be used in integration and functional tests as long as they run in the same JVM as the system under test.
 	</description>
 	<url>https://github.com/d-lorenc/dread-logs</url>
 
