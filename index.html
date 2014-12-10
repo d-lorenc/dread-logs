@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Dreadlogs : ">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Dreadlogs</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/d-lorenc/dread-logs">View on GitHub</a>
+
+          <h1 id="project_title">Dreadlogs</h1>
+          <h2 id="project_tagline"></h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/d-lorenc/dread-logs/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/d-lorenc/dread-logs/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="dread-logs" class="anchor" href="#dread-logs" aria-hidden="true"><span class="octicon octicon-link"></span></a>dread-logs</h1>
+
+<p><a href="https://travis-ci.org/d-lorenc/dread-logs"><img src="https://travis-ci.org/d-lorenc/dread-logs.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/r/d-lorenc/dread-logs?branch=master"><img src="https://coveralls.io/repos/d-lorenc/dread-logs/badge.png?branch=master" alt="Coverage Status"></a></p>
+
+<p>A Java library for testing logs. It supports most commonly used logging libraries, namely <a href="http://logging.apache.org/log4j">log4j</a>, <a href="http://logback.qos.ch/">Logback</a> and Java logging framework (JUL = java.util.logging). It is aimed for unit testing (TDD) but can also be used in integration and functional tests as long as they run in the same JVM as your system under test.</p>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>example</h2>
+
+<div class="highlight highlight-java"><pre>@<span class="pl-stj">Test</span>
+<span class="pl-s">public</span> <span class="pl-st">void</span> shouldCaptureLogWithMessage() throws <span class="pl-stj">Exception</span> {
+    <span class="pl-c">//create a log captor which attaches an extra appender to collect logs in memory</span>
+    <span class="pl-stj">Log4jCaptor</span> captor <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-stj">Log4jCaptor</span>(<span class="pl-s1"><span class="pl-pds">"</span>me.lorenc.dreadlogs<span class="pl-pds">"</span></span>);
+
+    <span class="pl-c">//execute code which logs something</span>
+    <span class="pl-stj">Logger</span> logger <span class="pl-k">=</span> <span class="pl-stj">Logger</span><span class="pl-k">.</span>getLogger(<span class="pl-s1"><span class="pl-pds">"</span>me.lorenc.dreadlogs.some.package<span class="pl-pds">"</span></span>);
+    logger<span class="pl-k">.</span>info(<span class="pl-s1"><span class="pl-pds">"</span>a message<span class="pl-pds">"</span></span>);
+
+    <span class="pl-c">//verify that the captor has your log message</span>
+    assertThat(captor, hasLog(<span class="pl-s1"><span class="pl-pds">"</span>a message<span class="pl-pds">"</span></span>)<span class="pl-k">.</span>onLevel(<span class="pl-c1">INFO</span>));
+
+    <span class="pl-c">//clean up - by detaching appender you make sure it stops collecting any further logs, otherwise you may end up with OOME</span>
+    captor<span class="pl-k">.</span>detachAppender();
+}</pre></div>
+
+<p>or like this:</p>
+
+<div class="highlight highlight-java"><pre><span class="pl-s">private</span> <span class="pl-stj">Logger</span> logger;
+<span class="pl-s">private</span> <span class="pl-stj">Log4jCaptor</span> captor;
+
+@<span class="pl-stj">Before</span>
+<span class="pl-s">public</span> <span class="pl-st">void</span> before() throws <span class="pl-stj">Exception</span> {
+    logger <span class="pl-k">=</span> <span class="pl-stj">Logger</span><span class="pl-k">.</span>getLogger(<span class="pl-s1"><span class="pl-pds">"</span>me.lorenc.dreadlogs.some.package<span class="pl-pds">"</span></span>);
+    captor <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-stj">Log4jCaptor</span>(<span class="pl-s1"><span class="pl-pds">"</span>me.lorenc.dreadlogs<span class="pl-pds">"</span></span>);
+}
+
+@<span class="pl-stj">After</span>
+<span class="pl-s">public</span> <span class="pl-st">void</span> after() throws <span class="pl-stj">Exception</span> {
+    captor<span class="pl-k">.</span>detachAppender();
+}
+
+@<span class="pl-stj">Test</span>
+<span class="pl-s">public</span> <span class="pl-st">void</span> shouldCaptureLogWithMessageSimples() throws <span class="pl-stj">Exception</span> {
+
+    logger<span class="pl-k">.</span>info(<span class="pl-s1"><span class="pl-pds">"</span>a message<span class="pl-pds">"</span></span>);
+
+    assertThat(captor, hasLog(<span class="pl-s1"><span class="pl-pds">"</span>a message<span class="pl-pds">"</span></span>));
+}</pre></div>
+
+<p></p><dd>* hasLog is a static method in me.lorenc.dreadlogs.captor.log4j.Log4jMatchers</dd>
+
+<p>For more examples, please check out functional tests:</p>
+
+<ul>
+<li><a href="https://github.com/d-lorenc/dread-logs/tree/master/src/test/java/me/lorenc/dreadlogs/captor/log4j/functional">log4j</a></li>
+<li><a href="https://github.com/d-lorenc/dread-logs/tree/master/src/test/java/me/lorenc/dreadlogs/captor/logback/functional">logback</a></li>
+<li><a href="https://github.com/d-lorenc/dread-logs/tree/master/src/test/java/me/lorenc/dreadlogs/captor/jul/functional">jul</a></li>
+</ul>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>install</h2>
+
+<h5>
+<a id="maven" class="anchor" href="#maven" aria-hidden="true"><span class="octicon octicon-link"></span></a>maven</h5>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">dependency</span>&gt;
+    &lt;<span class="pl-ent">groupId</span>&gt;me.lorenc.dreadlogs&lt;/<span class="pl-ent">groupId</span>&gt;
+    &lt;<span class="pl-ent">artifactId</span>&gt;dreadlogs&lt;/<span class="pl-ent">artifactId</span>&gt;
+    &lt;<span class="pl-ent">version</span>&gt;0.1&lt;/<span class="pl-ent">version</span>&gt;
+&lt;/<span class="pl-ent">dependency</span>&gt;</pre></div>
+
+<h5>
+<a id="gradle" class="anchor" href="#gradle" aria-hidden="true"><span class="octicon octicon-link"></span></a>gradle</h5>
+
+<pre><code>'me.lorenc.dreadlogs:dreadlogs:0.1'
+</code></pre>
+
+<h5>
+<a id="sbt" class="anchor" href="#sbt" aria-hidden="true"><span class="octicon octicon-link"></span></a>sbt</h5>
+
+<pre><code>libraryDependencies += "me.lorenc.dreadlogs" % "dreadlogs" % "0.1"
+</code></pre>
+
+<h5>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>dependencies</h5>
+
+<p>Hamcrest, and of course a logging library of your choice (log4j or logback-classic), which you should already have in your project.  </p>
+
+<h2>
+<a id="how-it-works" class="anchor" href="#how-it-works" aria-hidden="true"><span class="octicon octicon-link"></span></a>how it works</h2>
+
+<p>It uses log appenders which attach to the logging library and capture and store log events in memory. A few available matchers allow for easy assertions. Apart from checking for a log message, the matchers let you specify expected level, logger name (package), exception details or even MDC values.</p>
+
+<h2>
+<a id="why-capturing-appenders" class="anchor" href="#why-capturing-appenders" aria-hidden="true"><span class="octicon octicon-link"></span></a>why "capturing appenders"</h2>
+
+<p>There is definitely more than one way to test the logs. In a unit test a logger can be mocked. That way any interactions with the logger API can be verified. The other extreme would be writing logs to a file (or a stream) and test the actual file/stream content, including line formatting etc. That is not ideal for unit testing (involves file system), but may be preferable for functional tests.
+The "capturing appender" is a solution in the middle, which is fast and isolated enough for unit testing. At the same time it can be applied in other types of tests, as long as they run in the same JVM as the systems which writes the logs. A good example would be a lightweight independent system component which can run on its own (e.g. inside embedded container). 
+Such a component can be started from a test, which means that everything can run within the same JVM.</p>
+
+<h2>
+<a id="motivation" class="anchor" href="#motivation" aria-hidden="true"><span class="octicon octicon-link"></span></a>motivation</h2>
+
+<p>I have been working on many agile projects, where we would follow TDD and/or BDD principles, and quite often write some tests to check logs too. Unfortunately I haven't come across any library which would help in that. I would usually create some sort of in-memory-appender with a bunch of classes to make log assertions neat and simple. And I would repeat the same process for many projects (different logging framework, employer). So here is my attempt to create a library, which covers the most common Java log frameworks, and simplifies verification of logs in tests. As this makes testing logs quite trivial, you may even stop asking yourself whether you should be testing logs or not.</p>
+
+<h2>
+<a id="java-version" class="anchor" href="#java-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>java version</h2>
+
+<p>1.5 or later</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Dreadlogs maintained by <a href="https://github.com/d-lorenc">d-lorenc</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-57513984-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
