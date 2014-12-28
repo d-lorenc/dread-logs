@@ -2,6 +2,7 @@ dread-logs
 ==========
 
 [![Build Status](https://travis-ci.org/d-lorenc/dread-logs.svg?branch=master)](https://travis-ci.org/d-lorenc/dread-logs) [![Coverage Status](https://coveralls.io/repos/d-lorenc/dread-logs/badge.png?branch=master)](https://coveralls.io/r/d-lorenc/dread-logs?branch=master)
+[ ![Codeship Status for d-lorenc/dread-logs](https://codeship.com/projects/8d9c5bc0-706d-0132-8c23-465f6b223ee2/status?branch=master)](https://codeship.com/projects/54515)
 
 A Java library for testing logs. It supports most commonly used logging libraries, namely [log4j](http://logging.apache.org/log4j), [Logback](http://logback.qos.ch/) and Java logging framework (JUL = java.util.logging). It is aimed for unit testing (TDD) but can also be used in integration and functional tests as long as they run in the same JVM as your system under test.
 
