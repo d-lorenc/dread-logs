@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.lorenc.dreadlogs.util.DefaultString;
-
 import org.junit.Test;
 
 public class DefaultStringTest {

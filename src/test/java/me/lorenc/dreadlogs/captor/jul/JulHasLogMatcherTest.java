@@ -7,15 +7,14 @@ import static org.mockito.Mockito.when;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-import me.lorenc.dreadlogs.captor.LogEntry;
-import me.lorenc.dreadlogs.captor.LogExpectations;
-import me.lorenc.dreadlogs.captor.jul.JulHasLogMatcher;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import me.lorenc.dreadlogs.captor.LogEntry;
+import me.lorenc.dreadlogs.captor.LogExpectations;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JulHasLogMatcherTest {

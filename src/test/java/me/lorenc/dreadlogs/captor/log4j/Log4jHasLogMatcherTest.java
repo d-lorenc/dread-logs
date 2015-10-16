@@ -3,9 +3,6 @@ package me.lorenc.dreadlogs.captor.log4j;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
-import me.lorenc.dreadlogs.captor.LogEntry;
-import me.lorenc.dreadlogs.captor.LogExpectations;
-import me.lorenc.dreadlogs.captor.log4j.Log4jHasLogMatcher;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
@@ -14,6 +11,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import me.lorenc.dreadlogs.captor.LogEntry;
+import me.lorenc.dreadlogs.captor.LogExpectations;
 
 @RunWith(MockitoJUnitRunner.class)
 public class Log4jHasLogMatcherTest {

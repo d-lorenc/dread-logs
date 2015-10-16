@@ -8,8 +8,6 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-import me.lorenc.dreadlogs.captor.LogCapture;
-
 import org.apache.log4j.spi.LoggingEvent;
 import org.junit.Before;
 import org.junit.Test;

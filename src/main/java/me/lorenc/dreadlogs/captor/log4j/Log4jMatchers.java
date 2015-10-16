@@ -1,10 +1,11 @@
 package me.lorenc.dreadlogs.captor.log4j;
 
 import static org.hamcrest.Matchers.equalTo;
-import me.lorenc.dreadlogs.captor.LogExpectations;
 
 import org.apache.log4j.Level;
 import org.hamcrest.Matcher;
+
+import me.lorenc.dreadlogs.captor.LogExpectations;
 
 public class Log4jMatchers {
 

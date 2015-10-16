@@ -13,9 +13,6 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 import java.util.List;
 
-import me.lorenc.dreadlogs.captor.LogCapture;
-import me.lorenc.dreadlogs.captor.log4j.Log4jCapturingAppender;
-
 import org.apache.log4j.Layout;
 import org.apache.log4j.spi.LoggingEvent;
 import org.junit.Before;
@@ -23,6 +20,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import me.lorenc.dreadlogs.captor.LogCapture;
 
 @RunWith(MockitoJUnitRunner.class)
 public class Log4jCapturingAppenderTest {

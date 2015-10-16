@@ -4,9 +4,6 @@ import static java.util.logging.Level.FINE;
 import static java.util.logging.Level.INFO;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertNotNull;
-import me.lorenc.dreadlogs.captor.jul.JulHasLogMatcher;
-import me.lorenc.dreadlogs.captor.jul.JulMatchers;
-import me.lorenc.dreadlogs.captor.jul.JulNoLogMatcher;
 
 import org.junit.Test;
 

@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
-import me.lorenc.dreadlogs.captor.log4j.Log4jEntry;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;

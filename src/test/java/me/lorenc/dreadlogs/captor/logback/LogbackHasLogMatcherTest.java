@@ -3,9 +3,6 @@ package me.lorenc.dreadlogs.captor.logback;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
-import me.lorenc.dreadlogs.captor.LogEntry;
-import me.lorenc.dreadlogs.captor.LogExpectations;
-import me.lorenc.dreadlogs.captor.logback.LogbackHasLogMatcher;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +12,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import me.lorenc.dreadlogs.captor.LogEntry;
+import me.lorenc.dreadlogs.captor.LogExpectations;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LogbackHasLogMatcherTest {

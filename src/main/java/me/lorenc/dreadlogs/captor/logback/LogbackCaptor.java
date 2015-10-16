@@ -2,16 +2,16 @@ package me.lorenc.dreadlogs.captor.logback;
 
 import java.util.List;
 
-import me.lorenc.dreadlogs.captor.Captor;
-import me.lorenc.dreadlogs.captor.LogCapture;
-
+import org.junit.rules.ExternalResource;
 import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import me.lorenc.dreadlogs.captor.Captor;
+import me.lorenc.dreadlogs.captor.LogCapture;
 
-public class LogbackCaptor implements Captor<ILoggingEvent> {
+public class LogbackCaptor extends ExternalResource implements Captor<ILoggingEvent> {
 
     private final LogbackCapturingAppender appender;
     private final Logger logger;
@@ -45,4 +45,8 @@ public class LogbackCaptor implements Captor<ILoggingEvent> {
         return appender.getCapturedLogs();
     }
 
+    @Override
+    protected void after() {
+        detachAppender();
+    }
 }

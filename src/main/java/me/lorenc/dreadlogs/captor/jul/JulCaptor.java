@@ -5,10 +5,12 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
+import org.junit.rules.ExternalResource;
+
 import me.lorenc.dreadlogs.captor.Captor;
 import me.lorenc.dreadlogs.captor.LogCapture;
 
-public class JulCaptor implements Captor<LogRecord> {
+public class JulCaptor extends ExternalResource implements Captor<LogRecord> {
 
     private final JulCapturingHandler handler;
     private final Logger logger;
@@ -42,4 +44,8 @@ public class JulCaptor implements Captor<LogRecord> {
         return handler.getCapturedLogs();
     }
 
+    @Override
+    protected void after() {
+        detachAppender();
+    }
 }

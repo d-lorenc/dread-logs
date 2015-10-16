@@ -5,9 +5,6 @@ import static org.apache.log4j.Level.INFO;
 import static org.apache.log4j.Level.TRACE;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertNotNull;
-import me.lorenc.dreadlogs.captor.log4j.Log4jHasLogMatcher;
-import me.lorenc.dreadlogs.captor.log4j.Log4jMatchers;
-import me.lorenc.dreadlogs.captor.log4j.Log4jNoLogMatcher;
 
 import org.junit.Test;
 

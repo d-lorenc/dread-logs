@@ -9,8 +9,6 @@ import static org.mockito.Mockito.when;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.lorenc.dreadlogs.captor.logback.LogbackEntry;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

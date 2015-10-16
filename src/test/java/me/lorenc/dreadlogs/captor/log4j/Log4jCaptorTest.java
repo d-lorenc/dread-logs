@@ -10,9 +10,6 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 import java.util.List;
 
-import me.lorenc.dreadlogs.captor.log4j.Log4jCaptor;
-import me.lorenc.dreadlogs.captor.log4j.Log4jCapturingAppender;
-
 import org.apache.log4j.Layout;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
@@ -67,6 +64,12 @@ public class Log4jCaptorTest {
     @Test
     public void shouldDetachAppender() throws Exception {
         log4jCaptor.detachAppender();
+
+        verify(logger).removeAppender(appender);
+    }
+    @Test
+    public void shouldDetachAppenderOnAfter() throws Exception {
+        log4jCaptor.after();
 
         verify(logger).removeAppender(appender);
     }

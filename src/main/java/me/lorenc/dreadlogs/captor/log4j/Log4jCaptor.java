@@ -2,15 +2,16 @@ package me.lorenc.dreadlogs.captor.log4j;
 
 import java.util.List;
 
-import me.lorenc.dreadlogs.captor.Captor;
-import me.lorenc.dreadlogs.captor.LogCapture;
-
 import org.apache.log4j.Layout;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggingEvent;
+import org.junit.rules.ExternalResource;
 
-public class Log4jCaptor implements Captor<LoggingEvent> {
+import me.lorenc.dreadlogs.captor.Captor;
+import me.lorenc.dreadlogs.captor.LogCapture;
+
+public class Log4jCaptor extends ExternalResource implements Captor<LoggingEvent> {
 
     private final Log4jCapturingAppender appender;
     private final Logger logger;
@@ -45,6 +46,11 @@ public class Log4jCaptor implements Captor<LoggingEvent> {
 
     public List<LoggingEvent> getCapturedLogs() {
         return appender.getCapturedLogs();
+    }
+
+    @Override
+    protected void after() {
+        detachAppender();
     }
 
     @Override

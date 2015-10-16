@@ -8,8 +8,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
-import me.lorenc.dreadlogs.captor.LogEntry;
-import me.lorenc.dreadlogs.captor.LogExpectations;
 
 import org.apache.log4j.Level;
 import org.junit.Before;

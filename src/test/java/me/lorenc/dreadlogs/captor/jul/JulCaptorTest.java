@@ -11,9 +11,6 @@ import java.util.List;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-import me.lorenc.dreadlogs.captor.jul.JulCaptor;
-import me.lorenc.dreadlogs.captor.jul.JulCapturingHandler;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,6 +55,13 @@ public class JulCaptorTest {
     @Test
     public void shouldDetachAppender() throws Exception {
         julCaptor.detachAppender();
+
+        verify(logger).removeHandler(handler);
+    }
+
+    @Test
+    public void shouldDetachAppenderInAfter() throws Exception {
+        julCaptor.after();
 
         verify(logger).removeHandler(handler);
     }

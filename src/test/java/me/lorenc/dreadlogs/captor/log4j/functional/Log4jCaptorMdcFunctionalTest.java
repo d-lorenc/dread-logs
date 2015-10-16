@@ -3,30 +3,27 @@ package me.lorenc.dreadlogs.captor.log4j.functional;
 import static me.lorenc.dreadlogs.captor.log4j.Log4jMatchers.hasLog;
 import static me.lorenc.dreadlogs.captor.log4j.Log4jMatchers.noLog;
 import static org.junit.Assert.assertThat;
-import me.lorenc.dreadlogs.captor.log4j.Log4jCaptor;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.MDC;
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+
+import me.lorenc.dreadlogs.captor.log4j.Log4jCaptor;
 
 public class Log4jCaptorMdcFunctionalTest {
 
     private static final String LOGGER_NAME = "me.lorenc.dreadlogs.some.package";
 
     private Logger logger;
-    private Log4jCaptor captor;
+
+    @Rule
+    public Log4jCaptor captor = new Log4jCaptor(LOGGER_NAME);
 
     @Before
     public void before() throws Exception {
         logger = Logger.getLogger(LOGGER_NAME);
-        captor = new Log4jCaptor(LOGGER_NAME);
-    }
-
-    @After
-    public void after() throws Exception {
-        captor.detachAppender();
     }
 
     @Test

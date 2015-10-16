@@ -3,30 +3,27 @@ package me.lorenc.dreadlogs.captor.logback.functional;
 import static me.lorenc.dreadlogs.captor.logback.LogbackMatchers.hasLog;
 import static me.lorenc.dreadlogs.captor.logback.LogbackMatchers.noLog;
 import static org.junit.Assert.assertThat;
-import me.lorenc.dreadlogs.captor.logback.LogbackCaptor;
 
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Logger;
+import me.lorenc.dreadlogs.captor.logback.LogbackCaptor;
 
 public class LogbackCaptorLoggerNameFilteringFunctionalTest {
 
     private static final String LOGGER_NAME = "me.lorenc.dreadlogs.some.package";
 
     private Logger logger;
-    private LogbackCaptor captor;
+
+    @Rule
+    public LogbackCaptor captor = new LogbackCaptor(LOGGER_NAME);
 
     @Before
     public void before() throws Exception {
         logger = (Logger) LoggerFactory.getLogger(LOGGER_NAME);
-    }
-
-    @After
-    public void after() throws Exception {
-        captor.detachAppender();
     }
 
     @Test

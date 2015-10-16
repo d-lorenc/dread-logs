@@ -2,9 +2,9 @@ package me.lorenc.dreadlogs.captor.jul;
 
 import java.util.logging.Level;
 
-import me.lorenc.dreadlogs.captor.LogExpectations;
-
 import org.hamcrest.Matcher;
+
+import me.lorenc.dreadlogs.captor.LogExpectations;
 
 public class JulMatchers {
 

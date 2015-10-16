@@ -2,11 +2,11 @@ package me.lorenc.dreadlogs.captor.log4j;
 
 import java.util.Map;
 
-import me.lorenc.dreadlogs.captor.LogEntry;
-
 import org.apache.log4j.Level;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.ThrowableInformation;
+
+import me.lorenc.dreadlogs.captor.LogEntry;
 
 public class Log4jEntry extends LogEntry<Level> {
 

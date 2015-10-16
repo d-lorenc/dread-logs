@@ -5,8 +5,6 @@ import static org.junit.Assert.assertThat;
 
 import java.util.HashMap;
 
-import me.lorenc.dreadlogs.captor.OnlyExpectedToStringBuilder;
-
 import org.junit.Before;
 import org.junit.Test;
 

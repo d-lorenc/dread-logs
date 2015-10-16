@@ -1,11 +1,11 @@
 package me.lorenc.dreadlogs.captor.logback;
 
 import static org.hamcrest.Matchers.equalTo;
-import me.lorenc.dreadlogs.captor.LogExpectations;
 
 import org.hamcrest.Matcher;
 
 import ch.qos.logback.classic.Level;
+import me.lorenc.dreadlogs.captor.LogExpectations;
 
 public class LogbackMatchers {
 

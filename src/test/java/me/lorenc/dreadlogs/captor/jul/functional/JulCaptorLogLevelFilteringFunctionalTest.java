@@ -7,28 +7,24 @@ import static org.junit.Assert.assertThat;
 
 import java.util.logging.Logger;
 
-import me.lorenc.dreadlogs.captor.jul.JulCaptor;
-
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+
+import me.lorenc.dreadlogs.captor.jul.JulCaptor;
 
 public class JulCaptorLogLevelFilteringFunctionalTest {
 
     private static final String LOGGER_NAME = "me.lorenc.dreadlogs.some.package";
 
     private Logger logger;
-    private JulCaptor captor;
+
+    @Rule
+    public JulCaptor captor = new JulCaptor(LOGGER_NAME);
 
     @Before
     public void before() throws Exception {
         logger = Logger.getLogger(LOGGER_NAME);
-        captor = new JulCaptor(LOGGER_NAME);
-    }
-
-    @After
-    public void after() throws Exception {
-        captor.detachAppender();
     }
 
     @Test

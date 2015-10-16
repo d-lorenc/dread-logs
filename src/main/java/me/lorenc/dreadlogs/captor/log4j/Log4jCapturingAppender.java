@@ -2,11 +2,11 @@ package me.lorenc.dreadlogs.captor.log4j;
 
 import java.util.List;
 
-import me.lorenc.dreadlogs.captor.LogCapture;
-
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Layout;
 import org.apache.log4j.spi.LoggingEvent;
+
+import me.lorenc.dreadlogs.captor.LogCapture;
 
 public class Log4jCapturingAppender extends AppenderSkeleton {
 

@@ -9,9 +9,6 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 import java.util.List;
 
-import me.lorenc.dreadlogs.captor.LogCapture;
-import me.lorenc.dreadlogs.captor.logback.LogbackCapturingAppender;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import me.lorenc.dreadlogs.captor.LogCapture;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LogbackCapturingAppenderTest {

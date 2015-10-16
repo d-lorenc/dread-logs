@@ -7,9 +7,6 @@ import static org.mockito.Mockito.when;
 import java.util.HashMap;
 import java.util.Map;
 
-import me.lorenc.dreadlogs.captor.LogEntry;
-import me.lorenc.dreadlogs.captor.LogExpectations;
-
 import org.apache.log4j.Level;
 import org.junit.Before;
 import org.junit.Test;

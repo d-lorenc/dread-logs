@@ -9,8 +9,6 @@ import static org.mockito.Mockito.when;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
-import me.lorenc.dreadlogs.captor.jul.JulEntry;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

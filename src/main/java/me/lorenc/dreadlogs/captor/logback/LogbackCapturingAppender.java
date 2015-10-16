@@ -1,9 +1,10 @@
 package me.lorenc.dreadlogs.captor.logback;
+
 import java.util.List;
 
-import me.lorenc.dreadlogs.captor.LogCapture;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AppenderBase;
+import me.lorenc.dreadlogs.captor.LogCapture;
 
 public class LogbackCapturingAppender extends AppenderBase<ILoggingEvent> {
 

@@ -10,9 +10,6 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 import java.util.List;
 
-import me.lorenc.dreadlogs.captor.logback.LogbackCaptor;
-import me.lorenc.dreadlogs.captor.logback.LogbackCapturingAppender;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,12 +56,18 @@ public class LogbackCaptorTest {
     public void shouldAttachAppenderToLoggerAndStartItOnConstruction() throws Exception {
         InOrder inOrder = inOrder(logger, appender);
         inOrder.verify(logger).addAppender(appender);
-        inOrder.verify(appender).start();;
+        inOrder.verify(appender).start();
     }
 
     @Test
     public void shouldDetachAppender() throws Exception {
         logbackCaptor.detachAppender();
+
+        verify(logger).detachAppender(appender);
+    }
+    @Test
+    public void shouldDetachAppenderOnAfer() throws Exception {
+        logbackCaptor.after();
 
         verify(logger).detachAppender(appender);
     }

@@ -11,14 +11,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.LogRecord;
 
-import me.lorenc.dreadlogs.captor.LogCapture;
-import me.lorenc.dreadlogs.captor.jul.JulCapturingHandler;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import me.lorenc.dreadlogs.captor.LogCapture;
 
 @RunWith(MockitoJUnitRunner.class)
 public class JulCapturingHandlerTest {

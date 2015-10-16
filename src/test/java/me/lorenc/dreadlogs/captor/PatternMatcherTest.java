@@ -4,7 +4,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import me.lorenc.dreadlogs.captor.PatternMatcher;
 
 import org.hamcrest.StringDescription;
 import org.junit.Test;

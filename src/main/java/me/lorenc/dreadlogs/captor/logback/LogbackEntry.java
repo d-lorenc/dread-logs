@@ -2,10 +2,10 @@ package me.lorenc.dreadlogs.captor.logback;
 
 import java.util.Map;
 
-import me.lorenc.dreadlogs.captor.LogEntry;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.classic.spi.IThrowableProxy;
+import me.lorenc.dreadlogs.captor.LogEntry;
 
 public class LogbackEntry extends LogEntry<Level> {
 

@@ -5,9 +5,6 @@ import static ch.qos.logback.classic.Level.INFO;
 import static ch.qos.logback.classic.Level.TRACE;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertNotNull;
-import me.lorenc.dreadlogs.captor.logback.LogbackHasLogMatcher;
-import me.lorenc.dreadlogs.captor.logback.LogbackMatchers;
-import me.lorenc.dreadlogs.captor.logback.LogbackNoLogMatcher;
 
 import org.junit.Test;
 
